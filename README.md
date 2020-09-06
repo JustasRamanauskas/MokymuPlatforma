@@ -18,9 +18,11 @@ Teacher- dėstytojas, kuris veda teorinius mokymus studentams
 Company- įmonė, atliekanti kvalifikacijos kėlimo mokymus
 Course- mokymų programa pagal kurią vedami mokymai (pvz.: aukštalipių, suvirinimo ir pan). Susideda iš teorinės, praktinės ir egzamino dalių
 Course_Theory- teorijos mokymų aprašymas, kiek laiko užtrunka ir pan.
-TimeTable_Course- tvarkaraštis pagal kurį vykdomi mokymai
+Shedule_Course- tvarkaraštis pagal kurį vykdomi mokymai
 Course_Practice- Praktikos aprašymas, kiek laiko užtrunka ir pan.
 Attendance- Studentų dalyvavusių mokymuose sužymėjimas
+Contract- sutarčių sąrašas sudarytas tarp Company ir Student, kaip trečią šalį įtraukiant Client
+Pricing- kainodaros lenta sujungta su kursais. Reikalinga tam, kad būtų galima taikyti skirtingas kainas, nuolaidas ir pan
 
 Darbai:
 Sukurti SQL duomenų bazę, kurioje saugotume 1

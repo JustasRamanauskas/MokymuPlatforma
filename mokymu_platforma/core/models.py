@@ -1,8 +1,44 @@
 from django.db import models
+from datetime import timezone
 from django.utils import timezone
 import datetime
 
 # Create your models here.
+
+class Company(models.Model):
+    company_name = models.CharField(max_length=20)
+    company_logo = models.ImageField()
+    company_description = models.TextField()
+
+class Course(models.Model):
+    course_category = models.CharField(max_length=20)
+    course_description = models.TextField()
+
+class Courses_Company(models.Model):
+    course_id = models.ForeignKey(Course, on_delete=models.DO_NOTHING())
+    company_id = models.ForeignKey(Company, on_delete=models.DO_NOTHING())
+
+
+class Student(models.Model):
+    user_id = models.CharField(max_length=20)
+    student_personalCode = models.CharField(max_length=20)
+    registration_date = models.DateTimeField(default=timezone.now)
+    delete_date = models.DateTimeField(blank=True, null=True)
+    course_finished = models.DateTimeField(blank=True, null=True)
+    status = models.CharField
+
+class CoursesGroup_Student(models.Model):
+    course_id = models.ForeignKey( on_delete=models.DO_NOTHING())
+    company_id = models.ForeignKey(Student, on_delete=models.DO_NOTHING())
+
+class Courses_Group(models.Model):
+    course_id = models.ForeignKey(Course)
+    course_teacher_id = models.ForeignKey(Company)
+
+
+
+
+
 
 class User(models.Model):
     login_name = models.CharField(max_length=200)

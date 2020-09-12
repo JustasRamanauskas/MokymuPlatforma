@@ -17,4 +17,3 @@ class User(models.Model):
 class Roles(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE())
     roll_type = models.CharField(max_length=200)
-

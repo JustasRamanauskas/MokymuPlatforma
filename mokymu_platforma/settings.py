@@ -26,6 +26,7 @@ SECRET_KEY = 'b$as0!vc=%y+b5@tpm47*uh^0tz7bo_^88@o&^fa63m&g(k4#_'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+STATIC_ROOT = "../static"
 
 
 # Application definition
@@ -36,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles'
+    'django.contrib.staticfiles',
+    'mokymu_platforma.registracija'
 ]
 
 MIDDLEWARE = [
@@ -54,7 +56,7 @@ ROOT_URLCONF = 'mokymu_platforma.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['../mokymu_platforma/registracija/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,3 +120,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    'mokymu_platforma/registracija/static'
+]

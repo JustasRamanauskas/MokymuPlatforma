@@ -11,6 +11,8 @@ def print_hi(name):
 def testine_funkcija():
     print("TEstas")
 
+def initial_models():
+    print("Bandome Brachus")
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':

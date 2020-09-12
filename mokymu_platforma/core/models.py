@@ -15,25 +15,24 @@ class Course(models.Model):
     course_description = models.TextField()
 
 class Courses_Company(models.Model):
-    course_id = models.ForeignKey(Course, on_delete=models.DO_NOTHING())
-    company_id = models.ForeignKey(Company, on_delete=models.DO_NOTHING())
+    course_id = models.ForeignKey(Course, on_delete=models.DO_NOTHING)
+    company_id = models.ForeignKey(Company, on_delete=models.DO_NOTHING)
 
 
 class Student(models.Model):
     user_id = models.CharField(max_length=20)
     student_personalCode = models.CharField(max_length=20)
-    registration_date = models.DateTimeField(default=timezone.now)
+    registration_date = models.DateTimeField(default=datetime.datetime.now())
     delete_date = models.DateTimeField(blank=True, null=True)
-    course_finished = models.DateTimeField(blank=True, null=True)
-    status = models.CharField
+    status = models.BooleanField(default=False)
 
 class CoursesGroup_Student(models.Model):
-    course_id = models.ForeignKey( on_delete=models.DO_NOTHING())
-    company_id = models.ForeignKey(Student, on_delete=models.DO_NOTHING())
+    course_id = models.ForeignKey(Course, on_delete=models.DO_NOTHING)
+    company_id = models.ForeignKey(Student, on_delete=models.DO_NOTHING)
 
 class Courses_Group(models.Model):
-    course_id = models.ForeignKey(Course)
-    course_teacher_id = models.ForeignKey(Company)
+    course_id = models.ForeignKey(Course, on_delete=models.DO_NOTHING)
+    course_teacher_id = models.ForeignKey(Company, on_delete=models.DO_NOTHING)
 
 
 

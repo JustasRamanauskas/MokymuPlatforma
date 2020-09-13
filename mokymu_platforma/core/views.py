@@ -8,9 +8,9 @@ def registracija(request):
     if request.method == "POST":
         user = User()
         user.login_name = request.POST['inputEmailAddress']
-        if request.POST['inputPassword'] == request.POST['inputPassword2']:
-            user.login_password = request.POST['inputEmailAddress']
-
+        user.login_password = request.POST['inputPassword']
+        user.save()
+        return render(request, "index.html")
     return render(request, "registracija.html")
 
 def login(request):

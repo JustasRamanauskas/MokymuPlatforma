@@ -1,11 +1,10 @@
 from django.contrib import admin
 from django.urls import path, include
-from mokymu_platforma.core.views import registracija
-from mokymu_platforma.core.views import login
-from mokymu_platforma.core.views import password
+from mokymu_platforma.core.views import *
 
 urlpatterns = [
     path('registracija/', registracija),
     path('', login),
-    path('password/', password)
+    path('password/', password),
+    path('index/', index)
 ]

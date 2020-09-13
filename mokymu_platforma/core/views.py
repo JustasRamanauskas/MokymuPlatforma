@@ -18,3 +18,6 @@ def login(request):
 
 def password(request):
     return render(request, "password.html")
+
+def index(request):
+    return render(request, "index.html")

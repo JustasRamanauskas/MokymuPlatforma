@@ -1,16 +1,13 @@
 from django.shortcuts import render
-
-# Create your views here.
 from mokymu_platforma.core.models import User
 from mokymu_platforma.core.models import Roles
+from django.contrib.auth import authenticate
 
 def registracija(request):
     if request.method == "POST":
-        user = User()
-        user.name = request.POST['inputName']
-        user.surname = request.POST['inputSurname']
-        user.login_name = request.POST['inputLoginName']
-        user.login_password = request.POST['inputPassword']
+        user = User.objects.create_user(username=request.POST['inputName'], email=request.POST['inputLoginName'], password=request.POST['inputPassword'] )
+        user.first_name = request.POST['inputName']
+        user.last_name = request.POST['inputSurname']
         user.save()
 
         role = Roles()
@@ -22,8 +19,13 @@ def registracija(request):
     return render(request, "registracija.html")
 
 def login(request):
-
-    return render(request, "login.html")
+    if request.method == 'POST':
+        user = authenticate(username=request.POST['inputEmailAddress'], password=request.POST['inputPassword'])
+        if user is not None:
+            return render(request, "index.html")
+        else:
+            return render(request, "login.html", context=({'errors':"Bad login information"}))
+    return render(request, "login.html",context=({'errors':''}))
 
 def password(request):
     return render(request, "password.html")

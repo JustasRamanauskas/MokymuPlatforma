@@ -21,8 +21,18 @@
     <a class="navbar-brand" href="index.html">Start Bootstrap</a>
     <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i>
     </button>
+    <!-- Navbar Search-->
+    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+        <div class="input-group">
+            <input class="form-control" type="text" placeholder="Search for..." aria-label="Search"
+                   aria-describedby="basic-addon2"/>
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </form>
     <!-- Navbar-->
-    <ul class="navbar-nav d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+    <ul class="navbar-nav ml-auto ml-md-0">
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
@@ -55,7 +65,7 @@
                     <div class="collapse" id="collapseMokymai" aria-labelledby="headingOne"
                          data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="mokymai.temos.html">Mokymai/Temos</a>
+                            <a data-links href="#pirmasLangas" class="nav-link" onclick="show_form(this,'pirmasLangas')">Mokymai/Temos</a>
                             <a class="nav-link" href="layout-static.html">Tvarkaraštis</a>
                             <a class="nav-link" href="layout-static.html">Dėstytojai</a>
                             <a class="nav-link" href="layout-static.html">Studentai</a>
@@ -117,62 +127,8 @@
     </div>
     <div id="layoutSidenav_content">
         <main>
-            <div class="container-fluid">
-                <h1 class="mt-4">Dashboard</h1>
-                <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-                <div class="row">
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-primary text-white mb-4">
-                            <div class="card-body">Primary Card</div>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">View Details</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-warning text-white mb-4">
-                            <div class="card-body">Warning Card</div>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">View Details</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-success text-white mb-4">
-                            <div class="card-body">Success Card</div>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">View Details</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-danger text-white mb-4">
-                            <div class="card-body">Danger Card</div>
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">View Details</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table mr-1"></i>
-                        DataTable Example
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                PRATRINTA LENTELĖ
-                            </table>
-                        </div>
-                    </div>
-                </div>
+            <div class="data-content" id="pirmasLangas" hidden="True">
+                {% include "pirmas.html" %}
             </div>
         </main>
         <footer class="py-4 bg-light mt-auto">
@@ -199,5 +155,19 @@
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
 <script src="../static/assets/demo/datatables-demo.js"></script>
+<script>
+    function show_form(el, form_id) {
+        var contents = document.querySelectorAll('[data-content]');
+        for (var i = 0; i < contents.length; i++) {
+            contents[i].setAttribute("hidden", "True")
+        }
+        var contents = document.querySelectorAll('[data-links]');
+        for (var i = 0; i < contents.length; i++) {
+            contents[i].style.color = "black";
+        }
+        el.style.color = "green";
+        document.getElementById(form_id).removeAttribute('hidden')
+    }
+</script>
 </body>
 </html>

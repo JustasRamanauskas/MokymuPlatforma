@@ -7,7 +7,6 @@ import datetime
 class User(models.Model):
     login_name = models.CharField(max_length=200, unique=True)
     login_password = models.CharField(max_length=200)
-    email = models.CharField(max_length=200, unique=True)
     name = models.CharField(max_length=200)
     surname = models.CharField(max_length=200)
     photo = models.ImageField()

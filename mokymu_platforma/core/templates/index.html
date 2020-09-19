@@ -66,8 +66,8 @@
                          data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a data-links href="#pirmasLangas" class="nav-link" onclick="show_form(this,'pirmasLangas')">Mokymai/Temos</a>
-                            <a data-links href="#antrasLangas" class="nav-link" onclick="show_form(this,'antrasLangas')">Tvarkaraštis</a>
-                            <a class="nav-link" href="layout-static.html">Dėstytojai</a>
+                            <a data-links href="#antrasLangas" class="nav-link" onclick="show_form(this,'antrasLangas')">Tvarkaraštis</a></li>
+                            <a data-links href="#treciasLangas" class="nav-link" onclick="show_form(this,'treciasLangas')">Dėstytojai</a>
                             <a class="nav-link" href="layout-static.html">Studentai</a>
                             <a class="nav-link" href="layout-static.html">Ataskaita</a>
                         </nav>
@@ -133,6 +133,9 @@
             <div class="data-content" id="antrasLangas" hidden="True">
                 {% include "antras.html" %}
             </div>
+            <div class="data-content" id="treciasLangas" hidden="True">
+                {% include "trecias.html" %}
+            </div>
         </main>
         <footer class="py-4 bg-light mt-auto">
             <div class="container-fluid">
@@ -160,15 +163,15 @@
 <script src="../static/assets/demo/datatables-demo.js"></script>
 <script>
     function show_form(el, form_id) {
-        var contents = document.querySelectorAll('[data-content]');
-        for (var i = 0; i < contents.length; i++) {
-            contents[i].setAttribute('hidden', 'True')
+        let contentsToHide = document.querySelectorAll('[data-content]');
+        for (let i = 0; i < contentsToHide.length; i++) {
+            contentsToHide[i].setAttribute('hidden', 'True')
         }
-        var contents = document.querySelectorAll('[data-links]');
-        for (var i = 0; i < contents.length; i++) {
-            contents[i].style.color = "black";
+        let contentsToGrey = document.querySelectorAll('[data-links]');
+        for (let k = 0; k < contentsToGrey.length; k++) {
+            contentsToGrey[k].style.color = "grey";
         }
-        el.style.color = "green";
+        el.style.color = "white";
         document.getElementById(form_id).removeAttribute('hidden')
     }
 </script>

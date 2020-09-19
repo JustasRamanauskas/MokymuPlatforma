@@ -17,7 +17,7 @@ def registracija(request):
 
 def login(request):
 
-    return render(request, "tables.html")
+    return render(request, "login.html")
 
 def password(request):
     return render(request, "password.html")

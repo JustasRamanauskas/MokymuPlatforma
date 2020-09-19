@@ -3,6 +3,8 @@ from mokymu_platforma.core.models import User
 from mokymu_platforma.core.models import Roles
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
+
 
 
 def registracija(request):
@@ -26,7 +28,7 @@ def login(request):
         if user is not None:
             return render(request, "index.html")
         else:
-            return render(request, "login.html", context=({'errors':"Bad login information"}))
+            return render(request, "login.html", context=({'errors':"Bad login information!!"}))
     return render(request, "login.html",context=({'errors':''}))
 
 def logout_view(request):
@@ -34,6 +36,18 @@ def logout_view(request):
     return redirect(login)
 
 def password(request):
+    if request.method == 'POST':
+        user = authenticate(username=request.POST['inputEmailAddress'])
+        if user is not None:
+            send_mail(
+                'New password',
+                'Your new passwod is blabalbal',
+                'from@mail.com',
+                'inputEmailAddress'
+            )
+
+            
+
     return render(request, "password.html")
 
 @login_required(login_url='/')

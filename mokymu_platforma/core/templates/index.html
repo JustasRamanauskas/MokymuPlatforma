@@ -56,7 +56,7 @@
                          data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a data-links href="#pirmasLangas" class="nav-link" onclick="show_form(this,'pirmasLangas')">Mokymai/Temos</a>
-                            <a class="nav-link" href="layout-static.html">Tvarkaraštis</a>
+                            <a data-links href="#antrasLangas" class="nav-link" onclick="show_form(this,'antrasLangas')">Tvarkaraštis</a>
                             <a class="nav-link" href="layout-static.html">Dėstytojai</a>
                             <a class="nav-link" href="layout-static.html">Studentai</a>
                             <a class="nav-link" href="layout-static.html">Ataskaita</a>
@@ -120,6 +120,9 @@
             <div class="data-content" id="pirmasLangas" hidden="True">
                 {% include "pirmas.html" %}
             </div>
+            <div class="data-content" id="antrasLangas" hidden="True">
+                {% include "antras.html" %}
+            </div>
         </main>
         <footer class="py-4 bg-light mt-auto">
             <div class="container-fluid">
@@ -149,7 +152,7 @@
     function show_form(el, form_id) {
         var contents = document.querySelectorAll('[data-content]');
         for (var i = 0; i < contents.length; i++) {
-            contents[i].setAttribute("hidden", "True")
+            contents[i].setAttribute('hidden', 'True')
         }
         var contents = document.querySelectorAll('[data-links]');
         for (var i = 0; i < contents.length; i++) {

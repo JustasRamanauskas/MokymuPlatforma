@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from mokymu_platforma.core.models import User
 from mokymu_platforma.core.models import Roles
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, logout
+from django.contrib.auth.decorators import login_required
+
 
 def registracija(request):
     if request.method == "POST":
@@ -27,8 +29,13 @@ def login(request):
             return render(request, "login.html", context=({'errors':"Bad login information"}))
     return render(request, "login.html",context=({'errors':''}))
 
+def logout_view(request):
+    logout(request)
+    return redirect(login)
+
 def password(request):
     return render(request, "password.html")
 
+@login_required(login_url='/')
 def index(request):
     return render(request, "index.html")

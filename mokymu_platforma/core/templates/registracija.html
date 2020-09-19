@@ -9,7 +9,8 @@
     <title>Mokymų Platforma | Registracija</title>
     <link href="../static/css/styles.css" rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
-            crossorigin="anonymous"></script>
+            crossorigin="anonymous", >
+    </script>
 </head>
 <body class="bg-primary">
 <div id="layoutAuthentication">
@@ -24,10 +25,23 @@
                             <div class="card-body">
                                 <form method="post" action="/registracija/">
                                     <div class="form-group">
-                                        <label class="small mb-1" for="inputEmailAddress">Email</label>
-                                        <input class="form-control py-4" name="inputEmailAddress" id="inputEmailAddress"
+                                        <label class="small mb-1" for="inputName">Name</label>
+                                        <input class="form-control py-4" name="inputName" id="inputName"
+                                               type="text"
+                                               placeholder="Enter Name"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="inputSurname">Surname</label>
+                                        <input class="form-control py-4" name="inputSurname" id="inputSurname"
+                                               type="text"
+                                               placeholder="Enter Surname"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="inputLoginName">Email</label>
+                                        <input class="form-control py-4" name="inputLoginName" id="inputLoginName"
                                                type="email"
-                                               placeholder="Enter email address"/>
+                                               placeholder="Enter login name"/>
                                     </div>
                                     <div class="form-group">
                                         <label class="small mb-1" for="inputPassword">Password</label>
@@ -40,6 +54,15 @@
                                         <input class="form-control py-4" name="inputPassword2" id="inputPassword2"
                                                type="password"
                                                placeholder="Reenter password"/>
+                                    </div>
+                                    <div class="form-group" id="form1">
+                                        <label class="small mb-1" for="role">Select Role</label>
+                                         <select class="form-control" name="inputRole" id="inputRole" required>
+                                             <option value="student">Student</option>
+                                             <option value="instructor">Instructor</option>
+                                             <option value="client_company">Client Company</option>
+                                             <option value="provider_company">Providing Company</option>
+                                         </select>
                                     </div>
                                     {% csrf_token %}
                                     <input id="registerButton" class="btn btn-primary" type="submit">

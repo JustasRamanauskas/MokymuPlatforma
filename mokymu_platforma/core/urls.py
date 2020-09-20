@@ -4,8 +4,9 @@ from mokymu_platforma.core.views import *
 
 urlpatterns = [
     path('registracija/', registracija),
-    path('logout/',logout_view),
+    path('logout/', logout_view),
     path('', login_view),
     path('password/', password),
-    path('index/', index)
+    path('index/', index),
+    path('settings/', settings)
 ]

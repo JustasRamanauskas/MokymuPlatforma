@@ -52,3 +52,7 @@ def index(request):
     vartotojas = User.objects.get(username=request.user.first_name)
     roles = Roles.objects.filter(user_id=vartotojas.id)
     return render(request, "index.html", context={'auth_user' : request.user, 'core_roles' : roles})
+
+@login_required(login_url='/')
+def settings(request):
+    return render(request, "settings.html")

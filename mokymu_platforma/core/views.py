@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 
 
-
 def registracija(request):
     if request.method == "POST":
         user = User.objects.create_user(username=request.POST['inputName'], email=request.POST['inputLoginName'], password=request.POST['inputPassword'] )
@@ -46,12 +45,10 @@ def password(request):
                 'from@mail.com',
                 'inputEmailAddress'
             )
-
-            
-
     return render(request, "password.html")
 
 @login_required(login_url='/')
 def index(request):
-    print("Paleidome index funkciją")
-    return render(request, "index.html", context={'auth_user' : request.user})
+    vartotojas = User.objects.get(username=request.user.first_name)
+    roles = Roles.objects.filter(user_id=vartotojas.id)
+    return render(request, "index.html", context={'auth_user' : request.user, 'core_roles' : roles})

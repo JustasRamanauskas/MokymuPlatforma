@@ -1,28 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta name="description" content=""/>
-    <meta name="author" content=""/>
-    <title>Settings</title>
-    <link href="../static/css/styles.css" rel="stylesheet"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
-            crossorigin="anonymous"></script>
-</head>
-<body>
-<h1>Settings dalis </h1>
+<h2>Vertotojų duomenys</h2>
 <form action="/" method="post" id="settings_forma">
-    <div class="card-body">
-        <div class="form-group">
-            <div class="custom-control custom-checkbox">
-                <input class="small mb-1" id="company_name" type="text"/>
-                <label class="form-control py-4" for="company_name">Įmonės pavadinimas</label>
+    <div id="roll_type">
+        <p>Vartotojo rolės:</p>
+        {% for role in core_roles %}
+            <tr> {{ role.role_type }} </tr>
+        {% endfor %}
+    </div>
+    {% if "provider_company" in plain_roles %}
+        <div id="client">
+            <h2> Kliento informacija</h2>
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="form-control py-4" for="company_name">Įmonės pavadinimas</label>
+                    <input class="small mb-1" id="company_name" type="text"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control py-4" for="company_code">Įmonės kodas</label>
+                    <input class="small mb-1" id="company_code" type="text"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control py-4" for="company_address">Įmonės adresas</label>
+                    <input class="small mb-1" id="company_address" type="text"/>
+                </div>
+                <a class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Įvesti</a>
             </div>
         </div>
-        <a class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Įvesti</a>
-    </div>
+    {% endif %}
 </form>
-</body>
-</html>
+
+
+{#"student"#}
+{#"instructor"#}
+{#"client_company"#}
+{#"provider_company"#}

@@ -32,7 +32,7 @@
 </head>
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-    <a class="navbar-brand" > Sveiki atvykę: {{ auth_user.first_name }}
+    <a class="navbar-brand"> Sveiki atvykę: {{ auth_user.first_name }}
         {% for role in core_roles %}
             <tr> ( {{ role.role_type }} )</tr>
         {% endfor %}
@@ -64,7 +64,9 @@
                         Dashboard
                     </a>
                     <div class="sb-sidenav-menu-heading">Interface</div>
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMokymai"
+                    {% if "provider_company" in plain_roles %}
+                    <a class="nav-link collapsed" id="mokymai" href="#" data-toggle="collapse"
+                       data-target="#collapseMokymai"
                        aria-expanded="false" aria-controls="collapseMokymai">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Mokymai
@@ -80,7 +82,10 @@
                             <a class="nav-link" href="layout-static.html">Ataskaita</a>
                         </nav>
                     </div>
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudentas"
+                    {% endif %}
+                    {% if "student" in plain_roles %}
+                    <a class="nav-link collapsed" id="studentas" href="#" data-toggle="collapse"
+                       data-target="#collapseStudentas"
                        aria-expanded="false" aria-controls="collapseStudentas">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Studentas
@@ -94,12 +99,17 @@
                             <a class="nav-link" href="layout-static.html">Ataskaita</a>
                         </nav>
                     </div>
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDestytojas"
+                    {% endif %}
+
+                    {% if "instructor" in plain_roles %}
+                    <a class="nav-link collapsed" id="destytojas" href="#" data-toggle="collapse"
+                       data-target="#collapseDestytojas"
                        aria-expanded="false" aria-controls="collapseDestytojas">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Destytojas
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
+
                     <div class="collapse" id="collapseDestytojas" aria-labelledby="headingTwo"
                          data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
@@ -109,12 +119,17 @@
                             <a class="nav-link" href="layout-static.html">Ataskaita</a>
                         </nav>
                     </div>
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKlientas"
+                    {% endif %}
+                    {% if "client_company" in plain_roles %}
+                    <a class="nav-link collapsed" id="klientas" href="#" data-toggle="collapse"
+                       data-target="#collapseKlientas"
                        aria-expanded="false" aria-controls="collapseKlientas">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Klientas
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
+                    {% endif %}
+
                     <div class="collapse" id="collapseKlientas" aria-labelledby="headingTwo"
                          data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">

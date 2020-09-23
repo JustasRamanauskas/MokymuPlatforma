@@ -10261,8 +10261,3 @@ body {
   background-color: #e9ecef;
 }
 
-/*hide role-specific div html*/
-id.mokymai, div.end_user, div.agent, div.manager
-id{
-display: none;
-}

@@ -7,7 +7,8 @@ from django.core.mail import send_mail
 
 def registracija(request):
     if request.method == "POST":
-        user = User.objects.create_user(username=request.POST['inputName'], email=request.POST['inputLoginName'], password=request.POST['inputPassword'] )
+        user = User.objects.create_user(username=request.POST['inputName'], email=request.POST['inputLoginName'],
+                                        password=request.POST['inputPassword'])
         user.first_name = request.POST['inputName']
         user.last_name = request.POST['inputSurname']
         user.save()
@@ -20,6 +21,7 @@ def registracija(request):
         return redirect(login_view)
     return render(request, "registracija.html")
 
+
 def login_view(request):
     if request.method == 'POST':
         user = authenticate(username=request.POST['inputEmailAddress'], password=request.POST['inputPassword'])
@@ -28,12 +30,14 @@ def login_view(request):
             login(request, user)
             return redirect(index)
         else:
-            return render(request, "login.html", context=({'errors':"Bad login information!!"}))
-    return render(request, "login.html",context=({'errors':''}))
+            return render(request, "login.html", context=({'errors': "Bad login information!!"}))
+    return render(request, "login.html", context=({'errors': ''}))
+
 
 def logout_view(request):
     logout(request)
     return redirect(login_view)
+
 
 def password(request):
     if request.method == 'POST':
@@ -47,12 +51,15 @@ def password(request):
             )
     return render(request, "password.html")
 
+
 @login_required(login_url='/')
 def index(request):
     vartotojas = User.objects.get(username=request.user.first_name)
     roles = Roles.objects.filter(user_id=vartotojas.id)
     plain_roles = [r.role_type for r in roles]
-    return render(request, "index.html", context={'auth_user' : request.user, 'core_roles' : roles, "plain_roles":plain_roles})
+    return render(request, "index.html",
+                  context={'auth_user': request.user, 'core_roles': roles, "plain_roles": plain_roles})
+
 
 @login_required(login_url='/')
 def settings(request):

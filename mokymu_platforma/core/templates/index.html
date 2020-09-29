@@ -47,7 +47,7 @@
                aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                 <a class="dropdown-item" onclick="show_form(this,'settings', change_color=false)">Settings</a>
-                <a class="dropdown-item" href="#">Activity Log</a>
+                <!--<a class="dropdown-item" href="#">Activity Log</a>-->
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/logout/">Logout</a>
             </div>
@@ -98,7 +98,8 @@
                         <div class="collapse" id="collapseStudentas" aria-labelledby="headingTwo"
                              data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="layout-static.html">Tvarkaraštis</a>
+                                <a data-links href="#antrasLangas" class="nav-link"
+                                   onclick="show_form(this,'antrasLangas', true);render_calendar('calandar_mokymai')">Tvarkaraštis</a>
                                 <a class="nav-link" href="layout-static.html">Pažymėjimas/Atestatai</a>
                                 <a class="nav-link" href="layout-static.html">Ataskaita</a>
                             </nav>
@@ -117,7 +118,8 @@
                     <div class="collapse" id="collapseDestytojas" aria-labelledby="headingTwo"
                          data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="layout-static.html">Tvarkaraštis</a>
+                            <a data-links href="#antrasLangas" class="nav-link"
+                                   onclick="show_form(this,'antrasLangas', true);render_calendar('calandar_mokymai')">Tvarkaraštis</a>
                             <a data-links href="#grupes" class="nav-link" onclick="show_form(this,'grupes')">Grupės</a>
                             <a class="nav-link" href="layout-static.html">Užduotys</a>
                             <a class="nav-link" href="layout-static.html">Ataskaita</a>

@@ -1,7 +1,7 @@
 <h2>Vartotojų duomenys</h2>
 <form action="/" method="post" id="settings_forma">
     <div id="roll_type">
-        <p>Vartotojo rolės:</p>
+        <p><b>Roles:</b></p>
         {% for role in core_roles %}
             <tr> {{ role.role_type }} </tr>
         {% endfor %}
@@ -72,12 +72,14 @@
     {%  if "instructor" in plain_roles %}
         <h2> Mokytojas </h2>
         <div class="form-group">
-                <tr> {{ auth_user.first_name }} </tr>
-                <tr> {{ auth_user.last_name }} </tr>
-                <tr> {{ auth_user.last_login }} </tr>
+                <tr> <b>Your name:   </b>{{ auth_user.first_name }} </tr>
+                <br>
+                <tr> <b>Your surname:   </b>{{ auth_user.last_name }} </tr>
+                <br>
+                <tr> <b>Last Login:   </b> {{ auth_user.last_login }} </tr>
         </div>
         <div class="form-group">
-            <label class="form-control py-4" for="teacher_description">Aprašymas</label>
+            <label class="form-control py-4" for="teacher_description">Description</label>
             <input class="small mb-1" id="teacher_description" type="text"/>
         </div>
     {% endif %}

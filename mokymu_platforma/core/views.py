@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from mokymu_platforma.core.models import User, Roles
+from mokymu_platforma.core.models import User, Roles, Client
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
@@ -63,4 +63,11 @@ def index(request):
 
 @login_required(login_url='/')
 def settings(request):
+    if request.method == "POST":
+        client = Client
+        client.company_name = request.POST['client_company_name']
+        client.company_code = request.POST['client_company_code']
+        client.company_address = request.POST['client_company_address']
+        client.save()
+    
     return render(request, "settings.html")

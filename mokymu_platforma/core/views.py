@@ -64,10 +64,10 @@ def index(request):
 @login_required(login_url='/')
 def settings(request):
     if request.method == "POST":
-        client = Client
-        client.company_name = request.POST['client_company_name']
-        client.company_code = request.POST['client_company_code']
-        client.company_address = request.POST['client_company_address']
+        client = Client()
+        client.company_name = request.POST.get('client_company_name')
+        client.company_code = request.POST.get('client_company_code')
+        client.company_address = request.POST.get('client_company_address')
         client.save()
     
     return render(request, "settings.html")

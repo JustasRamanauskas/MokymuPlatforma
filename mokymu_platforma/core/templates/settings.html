@@ -7,23 +7,25 @@
         {% endfor %}
     </div>
     {% csrf_token %}
-    <div id="form_addroles">
-        <h2>Pasirinkite papildomas roles</h2>
-        <div>
-            <input type="checkbox" id="add_student" name="add_student" value="student">
-            <label for="add_student">Studentas</label> <br>
-            <input type="checkbox" id="add_instructor" name="add_instructor" value="instructor">
-            <label for="add_instructor">Mokytojas</label> <br>
-            <input type="checkbox" id="add_client_company" name="add_client_company" value="client_company">
-            <label for="add_student">Įmonė</label> <br>
-            <input type="checkbox" id="add_provider_company" name="add_provider_company" value="provider_company">
-            <label for="add_student">Mokymų organizatorius</label> <br>
-        </div>
-    </div>
+    <br>
+    <!--
+        <div id="form_addroles">
+            <h2>Pasirinkite papildomas roles</h2>
+            <div>
+                <input type="checkbox" id="add_student" name="add_student" value="student">
+                <label for="add_student">Studentas</label> <br>
+                <input type="checkbox" id="add_instructor" name="add_instructor" value="instructor">
+                <label for="add_instructor">Mokytojas</label> <br>
+                <input type="checkbox" id="add_client_company" name="add_client_company" value="client_company">
+                <label for="add_student">Įmonė</label> <br>
+                <input type="checkbox" id="add_provider_company" name="add_provider_company" value="provider_company">
+                <label for="add_student">Mokymų organizatorius</label> <br>
+            </div>
+        </div>-->
 
-    {% if "client_company" in plain_roles %}
+    {% if "client_company" in plain_roles and client is None %}
         <div id="client_company">
-            <h2> Kliento informacija</h2>
+            <h2>Kliento informacija</h2>
             <div class="card-body">
                 <div class="form-group">
                     <label class="form-control py-4" for="client_company_name">Įmonės pavadinimas</label>
@@ -37,57 +39,82 @@
                     <label class="form-control py-4" for="client_company_address">Įmonės adresas</label>
                     <input class="small mb-1" id="client_company_address" name="client_company_address" type="text"/>
                 </div>
-                {% csrf_token %}
             </div>
         </div>
+        <a class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Įvesti</a>
     {% endif %}
-    {% if "provider_company" in plain_roles %}
+
+
+    {% if client is not None %}
+        <p>Jūsų įmonės pavadinimas: <b>{{ client.company_name }}</b></p>
+        <p>Jūsų įmonės kodas: <b>{{ client.company_code }}</b></p>
+        <p>Jūsų įmonės adresas: <b>{{ client.company_address }}</b></p>
+        <!--<a class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Keisti</a>-->
+    {% endif %}
+
+    {% if "provider_company" in plain_roles and company is None %}
         <div id="provider_company">
             <h2> Mokymus organizuojanti įmonė </h2>
             <div class="card-body">
                 <div class="form-group">
                     <label class="form-control py-4" for="provider_company_name">Įmonės pavadinimas</label>
-                    <input class="small mb-1" id="provider_company_name" type="text"/>
+                    <input class="small mb-1" id="provider_company_name" name="provider_company_name" type="text"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control py-4" for="provider_company_description">Įmonės aprašymas</label>
-                    <input class="small mb-1" id="provider_company_description" type="text"/>
+                    <input class="small mb-1" id="provider_company_description" name="provider_company_description"
+                           type="text"/>
                 </div>
             </div>
         </div>
+        <a class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Įvesti</a>
     {% endif %}
+
+    {% if company is not None %}
+        <p>Jūsų įmonės pavadinimas: <b>{{ company.company_name }}</b></p>
+        <p>Jūsų įmonės aprašymas: <b>{{ company.company_description }}</b></p>
+        <!--<a class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Keisti</a>-->
+    {% endif %}
+
     {% if "student" in plain_roles %}
         <div id="student>">
             <h2>Studento duomenys</h2>
             <div class="form-group">
-                <tr> {{ auth_user.first_name }} </tr>
-                <tr> {{ auth_user.last_name }} </tr>
-                <tr> {{ auth_user.last_login }} </tr>
+                <tr> Your name: <b>{{ auth_user.first_name }}</b></tr>
+                <br>
+                <tr> Your surname: <b> {{ auth_user.last_name }}</b></tr>
+                <br>
+                <tr> Last Login: <b>{{ auth_user.last_login }}</b></tr>
             </div>
-            <div class="form-group">
-                <label class="form-control py-4" for="student_description">Aprašymas</label>
-                <input class="small mb-1" id="student_description" type="text"/>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="client_company_name">Asmens kodas</label>
+                    <input class="small mb-1" id="student_personal_code" name="student_personal_code" type="text"/>
+                </div>
             </div>
         </div>
+        <a class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Įvesti</a>
     {% endif %}
-    {%  if "instructor" in plain_roles %}
+
+
+    {% if "instructor" in plain_roles %}
         <h2> Mokytojas </h2>
         <div class="form-group">
-                <tr> <b>Your name:   </b>{{ auth_user.first_name }} </tr>
-                <br>
-                <tr> <b>Your surname:   </b>{{ auth_user.last_name }} </tr>
-                <br>
-                <tr> <b>Last Login:   </b> {{ auth_user.last_login }} </tr>
+            <tr><b>Your name: </b>{{ auth_user.first_name }} </tr>
+            <br>
+            <tr><b>Your surname: </b>{{ auth_user.last_name }} </tr>
+            <br>
+            <tr><b>Last Login: </b> {{ auth_user.last_login }} </tr>
         </div>
         <div class="form-group">
             <label class="form-control py-4" for="teacher_description">Description</label>
             <input class="small mb-1" id="teacher_description" type="text"/>
         </div>
+        <a class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Įvesti</a>
     {% endif %}
     {% csrf_token %}
-    <a class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Įvesti</a>
+    <!--<a class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Įvesti</a>-->
 </form>
-
 
 
 {#"student"#}

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from mokymu_platforma.core.models import User, Roles, Client
+from mokymu_platforma.core.models import User, Roles, Client, Company
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
@@ -58,19 +58,33 @@ def index(request):
     vartotojas = User.objects.get(username=request.user.first_name)
     roles = Roles.objects.filter(user_id=vartotojas.id)
     plain_roles = [r.role_type for r in roles]
+    client = Client.objects.filter(role_id=roles.first()).first()
+    company = Company.objects.filter(roles_id=roles.first()).first()
     return render(request, "index.html",
-                  context={'auth_user': request.user, 'core_roles': roles, "plain_roles": plain_roles})
+                  context={'auth_user': request.user, 'core_roles': roles, "plain_roles": plain_roles,
+                           'client': client, 'company': company})
 
 
 @login_required(login_url='/')
 def settings(request):
     if request.method == "POST":
+
         vartotojas = User.objects.get(username=request.user.first_name)
         role = Roles.objects.filter(user_id=vartotojas.id).first()
-        client = Client()
-        client.role_id = role
-        client.company_name = request.POST.get('client_company_name')
-        client.company_code = request.POST.get('client_company_code')
-        client.company_address = request.POST.get('client_company_address')
-        client.save()
-        return HttpResponse("Duomenys išsaugoti") #Čia tik tam kad parodyti kad veikia
+
+        if role.role_type == 'client_company':
+            client = Client()
+            client.role_id = role
+            client.company_name = request.POST.get('client_company_name')
+            client.company_code = request.POST.get('client_company_code')
+            client.company_address = request.POST.get('client_company_address')
+            client.save()
+
+        if role.role_type == 'provider_company':
+            company = Company()
+            company.roles_id = role
+            company.company_name = request.POST.get('provider_company_name')
+            company.company_description = request.POST.get('provider_company_description')
+            company.save()
+
+        return HttpResponse("Duomenys išsaugoti")  # Čia tik tam kad parodyti kad veikia

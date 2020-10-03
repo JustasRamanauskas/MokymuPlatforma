@@ -1,13 +1,13 @@
 <h2>Vartotojų duomenys</h2>
-<form action="/" method="post" id="settings_forma">
+<form action="/settings/" method="post" id="settings_forma" name="settings_forma">
     <div id="roll_type">
         <p><b>Roles:</b></p>
         {% for role in core_roles %}
             <tr> {{ role.role_type }} </tr>
         {% endfor %}
     </div>
-
-    <form id="form_addroles">
+    {% csrf_token %}
+    <div id="form_addroles">
         <h2>Pasirinkite papildomas roles</h2>
         <div>
             <input type="checkbox" id="add_student" name="add_student" value="student">
@@ -19,7 +19,7 @@
             <input type="checkbox" id="add_provider_company" name="add_provider_company" value="provider_company">
             <label for="add_student">Mokymų organizatorius</label> <br>
         </div>
-    </form>
+    </div>
 
     {% if "client_company" in plain_roles %}
         <div id="client_company">
@@ -27,16 +27,17 @@
             <div class="card-body">
                 <div class="form-group">
                     <label class="form-control py-4" for="client_company_name">Įmonės pavadinimas</label>
-                    <input class="small mb-1" id="client_company_name" type="text"/>
+                    <input class="small mb-1" id="client_company_name" name="client_company_name" type="text"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control py-4" for="client_company_code">Įmonės kodas</label>
-                    <input class="small mb-1" id="client_company_code" type="text"/>
+                    <input class="small mb-1" id="client_company_code" name="client_company_code" type="text"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control py-4" for="client_company_address">Įmonės adresas</label>
-                    <input class="small mb-1" id="client_company_address" type="text"/>
+                    <input class="small mb-1" id="client_company_address" name="client_company_address" type="text"/>
                 </div>
+                {% csrf_token %}
             </div>
         </div>
     {% endif %}
@@ -83,6 +84,7 @@
             <input class="small mb-1" id="teacher_description" type="text"/>
         </div>
     {% endif %}
+    {% csrf_token %}
     <a class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Įvesti</a>
 </form>
 

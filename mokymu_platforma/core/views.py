@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from mokymu_platforma.core.models import User, Roles
+from mokymu_platforma.core.models import User, Roles, Client
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from django.http import HttpResponse
 
 
 def registracija(request):
@@ -63,4 +64,13 @@ def index(request):
 
 @login_required(login_url='/')
 def settings(request):
-    return render(request, "settings.html")
+    if request.method == "POST":
+        vartotojas = User.objects.get(username=request.user.first_name)
+        role = Roles.objects.filter(user_id=vartotojas.id).first()
+        client = Client()
+        client.role_id = role
+        client.company_name = request.POST.get('client_company_name')
+        client.company_code = request.POST.get('client_company_code')
+        client.company_address = request.POST.get('client_company_address')
+        client.save()
+        return HttpResponse("Duomenys išsaugoti") #Čia tik tam kad parodyti kad veikia

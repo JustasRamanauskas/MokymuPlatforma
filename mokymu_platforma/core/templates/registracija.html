@@ -20,52 +20,53 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-5">
                         <div class="card shadow-lg border-0 rounded-lg mt-5">
-                            <div class="card-header"><h3 class="text-center font-weight-light my-4">Registration</h3>
+                            <div class="card-header"><h3 class="text-center font-weight-light my-4">Naujo vartotojo registracija</h3>
                             </div>
                             <div class="card-body">
                                 <form method="post" action="/registracija/">
                                     <div class="form-group">
-                                        <label class="small mb-1" for="inputName">Name</label>
+                                        <label class="small mb-1" for="inputName">Vardas</label>
                                         <input class="form-control py-4" name="inputName" id="inputName"
                                                type="text"
-                                               placeholder="Enter Name"/>
+                                               placeholder="Įrašykite vardą"/>
                                     </div>
                                     <div class="form-group">
-                                        <label class="small mb-1" for="inputSurname">Surname</label>
+                                        <label class="small mb-1" for="inputSurname">Pavardė</label>
                                         <input class="form-control py-4" name="inputSurname" id="inputSurname"
                                                type="text"
-                                               placeholder="Enter Surname"/>
+                                               placeholder="Įrašykite pavardę"/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="small mb-1" for="inputLoginName">Email</label>
+                                        <label class="small mb-1" for="inputLoginName">El. paštas</label>
                                         <input class="form-control py-4" name="inputLoginName" id="inputLoginName"
                                                type="email"
-                                               placeholder="Enter login name"/>
+                                               placeholder="Įrašykite el. paštą"/>
                                     </div>
                                     <div class="form-group">
-                                        <label class="small mb-1" for="inputPassword">Password</label>
+                                        <label class="small mb-1" for="inputPassword">Slaptažodis</label>
                                         <input class="form-control py-4" name="inputPassword" id="inputPassword"
                                                type="password"
-                                               placeholder="Enter password"/>
+                                               placeholder="Įrašykite slaptažodį"/>
                                     </div>
                                     <div class="form-group">
-                                        <label class="small mb-1" for="inputPassword">Repeat Password</label>
+                                        <label class="small mb-1" for="inputPassword">Pakartokite slaptažodį</label>
                                         <input class="form-control py-4" name="inputPassword2" id="inputPassword2"
                                                type="password"
-                                               placeholder="Reenter password"/>
+                                               placeholder="Pakartokite slaptažodį"/>
                                     </div>
                                     <div class="form-group" id="form1">
-                                        <label class="small mb-1" for="role">Select Role</label>
+                                        <label class="small mb-1" for="role">Pasirinkite role</label>
                                          <select class="form-control" name="inputRole" id="inputRole" required>
-                                             <option value="student">Student</option>
-                                             <option value="instructor">Instructor</option>
-                                             <option value="client_company">Client Company</option>
-                                             <option value="provider_company">Providing Company</option>
+                                             <option value="student">Studentas</option>
+                                             <option value="instructor">Mokytojas</option>
+                                             <option value="client_company">Įmonė</option>
+                                             <option value="provider_company">Mokymų organizatorius</option>
                                          </select>
                                     </div>
                                     {% csrf_token %}
-                                    <input id="registerButton" class="btn btn-primary" type="submit">
+                                    <p style="text-align:right;">
+                                    <input id="registerButton" class="btn btn-primary" type="submit" value="Registruotis">
                                 </form>
                             </div>
                         </div>

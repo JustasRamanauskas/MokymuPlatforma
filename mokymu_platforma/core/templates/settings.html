@@ -1,32 +1,91 @@
-<h2>Vertotojų duomenys</h2>
+<h2>Vartotojų duomenys</h2>
 <form action="/" method="post" id="settings_forma">
     <div id="roll_type">
-        <p>Vartotojo rolės:</p>
+        <p><b>Roles:</b></p>
         {% for role in core_roles %}
             <tr> {{ role.role_type }} </tr>
         {% endfor %}
     </div>
-    {% if "provider_company" in plain_roles %}
-        <div id="client">
+
+    <form id="form_addroles">
+        <h2>Pasirinkite papildomas roles</h2>
+        <div>
+            <input type="checkbox" id="add_student" name="add_student" value="student">
+            <label for="add_student">Studentas</label> <br>
+            <input type="checkbox" id="add_instructor" name="add_instructor" value="instructor">
+            <label for="add_instructor">Mokytojas</label> <br>
+            <input type="checkbox" id="add_client_company" name="add_client_company" value="client_company">
+            <label for="add_student">Įmonė</label> <br>
+            <input type="checkbox" id="add_provider_company" name="add_provider_company" value="provider_company">
+            <label for="add_student">Mokymų organizatorius</label> <br>
+        </div>
+    </form>
+
+    {% if "client_company" in plain_roles %}
+        <div id="client_company">
             <h2> Kliento informacija</h2>
             <div class="card-body">
                 <div class="form-group">
-                    <label class="form-control py-4" for="company_name">Įmonės pavadinimas</label>
-                    <input class="small mb-1" id="company_name" type="text"/>
+                    <label class="form-control py-4" for="client_company_name">Įmonės pavadinimas</label>
+                    <input class="small mb-1" id="client_company_name" type="text"/>
                 </div>
                 <div class="form-group">
-                    <label class="form-control py-4" for="company_code">Įmonės kodas</label>
-                    <input class="small mb-1" id="company_code" type="text"/>
+                    <label class="form-control py-4" for="client_company_code">Įmonės kodas</label>
+                    <input class="small mb-1" id="client_company_code" type="text"/>
                 </div>
                 <div class="form-group">
-                    <label class="form-control py-4" for="company_address">Įmonės adresas</label>
-                    <input class="small mb-1" id="company_address" type="text"/>
+                    <label class="form-control py-4" for="client_company_address">Įmonės adresas</label>
+                    <input class="small mb-1" id="client_company_address" type="text"/>
                 </div>
-                <a class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Įvesti</a>
             </div>
         </div>
     {% endif %}
+    {% if "provider_company" in plain_roles %}
+        <div id="provider_company">
+            <h2> Mokymus organizuojanti įmonė </h2>
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="form-control py-4" for="provider_company_name">Įmonės pavadinimas</label>
+                    <input class="small mb-1" id="provider_company_name" type="text"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control py-4" for="provider_company_description">Įmonės aprašymas</label>
+                    <input class="small mb-1" id="provider_company_description" type="text"/>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if "student" in plain_roles %}
+        <div id="student>">
+            <h2>Studento duomenys</h2>
+            <div class="form-group">
+                <tr> {{ auth_user.first_name }} </tr>
+                <tr> {{ auth_user.last_name }} </tr>
+                <tr> {{ auth_user.last_login }} </tr>
+            </div>
+            <div class="form-group">
+                <label class="form-control py-4" for="student_description">Aprašymas</label>
+                <input class="small mb-1" id="student_description" type="text"/>
+            </div>
+        </div>
+    {% endif %}
+    {%  if "instructor" in plain_roles %}
+        <h2> Mokytojas </h2>
+        <div class="form-group">
+                <tr> <b>Your name:   </b>{{ auth_user.first_name }} </tr>
+                <br>
+                <tr> <b>Your surname:   </b>{{ auth_user.last_name }} </tr>
+                <br>
+                <tr> <b>Last Login:   </b> {{ auth_user.last_login }} </tr>
+        </div>
+        <div class="form-group">
+            <label class="form-control py-4" for="teacher_description">Description</label>
+            <input class="small mb-1" id="teacher_description" type="text"/>
+        </div>
+    {% endif %}
+    <a class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Įvesti</a>
 </form>
+
 
 
 {#"student"#}

@@ -142,6 +142,10 @@ small {
   font-size: 80%;
 }
 
+medium_size_box {
+  height: 100px;
+}
+
 sub,
 sup {
   position: relative;

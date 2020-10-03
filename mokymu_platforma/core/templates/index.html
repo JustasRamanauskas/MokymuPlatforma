@@ -15,31 +15,29 @@
           crossorigin="anonymous"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
             crossorigin="anonymous"></script>
-        <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.3.2/main.css' rel='stylesheet'/>
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.3.2/main.css' rel='stylesheet'/>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.3.2/main.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.3.2/locales-all.js'></script>
     <script>
-    function show_form(el, form_id) {
-        var contentsToHide = document.querySelectorAll('[data-content]');
-        for (var i = 0; i < contentsToHide.length; i++) {
-            contentsToHide[i].setAttribute('hidden', 'True')
+        function show_form(el, form_id, change_color = true) {
+            var contentsToHide = document.querySelectorAll('[data-content]');
+            for (var i = 0; i < contentsToHide.length; i++) {
+                contentsToHide[i].setAttribute('hidden', 'True')
+            }
+            if (change_color === true) {
+                var contentsToGrey = document.querySelectorAll('[data-links]');
+                for (var k = 0; k < contentsToGrey.length; k++) {
+                    contentsToGrey[k].style.color = "grey";
+                }
+                el.style.color = "white";
+            }
+            document.getElementById(form_id).removeAttribute('hidden')
         }
-        var contentsToGrey = document.querySelectorAll('[data-links]');
-        for (var k = 0; k < contentsToGrey.length; k++) {
-            contentsToGrey[k].style.color = "grey";
-        }
-        el.style.color = "white";
-        document.getElementById(form_id).removeAttribute('hidden')
-    }
     </script>
 </head>
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-    <a class="navbar-brand"> Sveiki atvykę: {{ auth_user.first_name }}
-        {% for role in core_roles %}
-            <tr> ( {{ role.role_type }} )</tr>
-        {% endfor %}
-    </a>
+    <a class="navbar-brand"> Sveiki atvykę: {{ auth_user.first_name }}  </a>
     <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i>
     </button>
     <!-- Navbar-->
@@ -48,8 +46,8 @@
             <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">Settings</a>
-               <!-- <a class="dropdown-item" href="#">Activity Log</a>-->
+                <a class="dropdown-item" onclick="show_form(this,'settings', change_color=false)">Settings</a>
+                <!--<a class="dropdown-item" href="#">Activity Log</a>-->
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/logout/">Logout</a>
             </div>
@@ -68,75 +66,80 @@
                     </a>
                     <div class="sb-sidenav-menu-heading">Interface</div>
                     {% if "provider_company" in plain_roles %}
-                    <a class="nav-link collapsed" id="mokymai" href="#" data-toggle="collapse"
-                       data-target="#collapseMokymai"
-                       aria-expanded="false" aria-controls="collapseMokymai">
-                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        Mokymai
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseMokymai" aria-labelledby="headingOne"
-                         data-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a data-links href="#pirmasLangas" class="nav-link" onclick="show_form(this,'pirmasLangas')">Mokymai/Temos</a>
-                            <a data-links href="#antrasLangas" class="nav-link" onclick="show_form(this,'antrasLangas');render_calendar('calandar_mokymai')">Tvarkaraštis</a>
-                            <a data-links href="#treciasLangas" class="nav-link" onclick="show_form(this,'treciasLangas')">Dėstytojai</a>
-                            <a class="nav-link" href="layout-static.html">Studentai</a>
-                            <a class="nav-link" href="layout-static.html">Ataskaita</a>
-                        </nav>
-                    </div>
+                        <a class="nav-link collapsed" id="mokymai" href="#" data-toggle="collapse"
+                           data-target="#collapseMokymai"
+                           aria-expanded="false" aria-controls="collapseMokymai">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                            Mokymai
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseMokymai" aria-labelledby="headingOne"
+                             data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-me nu-nested nav">
+                                <a data-links href="#pirmasLangas" class="nav-link"
+                                   onclick="show_form(this,'pirmasLangas', true)">Mokymai/Temos</a>
+                                <a data-links href="#antrasLangas" class="nav-link"
+                                   onclick="show_form(this,'antrasLangas', true);render_calendar('calandar_mokymai')">Tvarkaraštis</a>
+                                <a data-links href="#treciasLangas" class="nav-link"
+                                   onclick="show_form(this,'treciasLangas', true)">Dėstytojai</a>
+                                <a class="nav-link" href="layout-static.html">Studentai</a>
+                                <a class="nav-link" href="layout-static.html">Ataskaita</a>
+                            </nav>
+                        </div>
                     {% endif %}
                     {% if "student" in plain_roles %}
-                    <a class="nav-link collapsed" id="studentas" href="#" data-toggle="collapse"
-                       data-target="#collapseStudentas"
-                       aria-expanded="false" aria-controls="collapseStudentas">
-                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        Studentas
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseStudentas" aria-labelledby="headingTwo"
-                         data-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a data-links href="#antrasLangas" class="nav-link" onclick="show_form(this,'antrasLangas');render_calendar('calandar_mokymai')">Tvarkaraštis</a>
-                            <a class="nav-link" href="layout-static.html">Pažymėjimas/Atestatai</a>
-                            <a class="nav-link" href="layout-static.html">Ataskaita</a>
-                        </nav>
-                    </div>
+                        <a class="nav-link collapsed" id="studentas" href="#" data-toggle="collapse"
+                           data-target="#collapseStudentas"
+                           aria-expanded="false" aria-controls="collapseStudentas">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                            Studentas
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseStudentas" aria-labelledby="headingTwo"
+                             data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a data-links href="#antrasLangas" class="nav-link"
+                                   onclick="show_form(this,'antrasLangas', true);render_calendar('calandar_mokymai')">Tvarkaraštis</a>
+                                <a class="nav-link" href="layout-static.html">Pažymėjimas/Atestatai</a>
+                                <a class="nav-link" href="layout-static.html">Ataskaita</a>
+                            </nav>
+                        </div>
                     {% endif %}
 
                     {% if "instructor" in plain_roles %}
-                    <a class="nav-link collapsed" id="destytojas" href="#" data-toggle="collapse"
-                       data-target="#collapseDestytojas"
-                       aria-expanded="false" aria-controls="collapseDestytojas">
-                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        Destytojas
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
+                        <a class="nav-link collapsed" id="destytojas" href="#" data-toggle="collapse"
+                           data-target="#collapseDestytojas"
+                           aria-expanded="false" aria-controls="collapseDestytojas">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                            Destytojas
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
 
                     <div class="collapse" id="collapseDestytojas" aria-labelledby="headingTwo"
                          data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a data-links href="#antrasLangas" class="nav-link" onclick="show_form(this,'antrasLangas');render_calendar('calandar_mokymai')">Tvarkaraštis</a>
-                            <a class="nav-link" href="layout-static.html">Grupės</a>
+                            <a data-links href="#antrasLangas" class="nav-link"
+                                   onclick="show_form(this,'antrasLangas', true);render_calendar('calandar_mokymai')">Tvarkaraštis</a>
+                            <a data-links href="#grupes" class="nav-link" onclick="show_form(this,'grupes')">Grupės</a>
                             <a class="nav-link" href="layout-static.html">Užduotys</a>
                             <a class="nav-link" href="layout-static.html">Ataskaita</a>
                         </nav>
                     </div>
                     {% endif %}
                     {% if "client_company" in plain_roles %}
-                    <a class="nav-link collapsed" id="klientas" href="#" data-toggle="collapse"
-                       data-target="#collapseKlientas"
-                       aria-expanded="false" aria-controls="collapseKlientas">
-                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        Klientas
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
+                        <a class="nav-link collapsed" id="klientas" href="#" data-toggle="collapse"
+                           data-target="#collapseKlientas"
+                           aria-expanded="false" aria-controls="collapseKlientas">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                            Klientas
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
                     {% endif %}
 
                     <div class="collapse" id="collapseKlientas" aria-labelledby="headingTwo"
                          data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a data-links href="#antrasLangas" class="nav-link" onclick="show_form(this,'antrasLangas');render_calendar('calandar_mokymai')">Tvarkaraštis</a>
+                            <a class="nav-link" href="layout-static.html">Tvarkaraštis</a>
                             <a class="nav-link" href="layout-static.html">Dėstytojai</a>
                             <a class="nav-link" href="layout-static.html">Pažymėjimai/Atestatai</a>
                             <a class="nav-link" href="layout-static.html">Ataskaita</a>
@@ -147,41 +150,60 @@
             </div>
             <div class="sb-sidenav-footer">
                 <div class="small">Logged in as:</div>
-                {{ guest }}
+                {% for role in core_roles %}
+                    <div class="small">{{ role.role_type }}</div>
+                {% endfor %}
             </div>
         </nav>
     </div>
     <div id="layoutSidenav_content">
-        <div data-content id="pirmasLangas" hidden>
-                {% include "pirmas.html" %}
+        <div data-content id="settings" hidden>
+            {% include "settings.html" with core_roles=core_roles plain_roles=plain_roles %}
         </div>
-        <footer class="py-4 bg-light mt-auto">
-            <div class="container-fluid">
-                <div class="d-flex align-items-center justify-content-between small">
-                    <div class="text-muted">Copyright &copy; Your Website 2020</div>
-                    <div>
-                        <a href="#">Privacy Policy</a>
-                        &middot;
-                        <a href="#">Terms &amp; Conditions</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        <div data-content id="pirmasLangas" hidden>
+            {% include "pirmas.html" %}
+        </div>
     </div>
 </div>
-    <div id="main_content_area">
+<div id="main_content_area">
+    <div data-content id="antrasLangas" hidden>
+        <div class="container">
+            <div id='calandar_mokymai'></div>
+        </div>
+
+    </div>
+</div>
+<div id="main_content_area">
+    <div data-content id="treciasLangas" hidden>
+        {#                <div id='calendar'></div>#}
+    </div>
+</div>
         <div data-content id="antrasLangas" hidden>
             <div class="container">
                 <div id='calandar_mokymai'></div>
                 </div>
 
         </div>
-    </div>
-    <div id="main_content_area">
         <div data-content id="treciasLangas" hidden>
 {#                <div id='calendar'></div>#}
         </div>
+        <div data-content id="grupes" hidden>
+                {% include "grupes.html" %}
+        </div>
+</div>
+
+<footer class="py-4 bg-light mt-auto">
+    <div class="container-fluid">
+        <div class="d-flex align-items-center justify-content-between small">
+            <div class="text-muted">Copyright &copy; Your Website 2020</div>
+            <div>
+                <a href="#">Privacy Policy</a>
+                &middot;
+                <a href="#">Terms &amp; Conditions</a>
+            </div>
+        </div>
     </div>
+</footer>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
@@ -193,16 +215,33 @@
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
 <script src="../static/assets/demo/datatables-demo.js"></script>
 <script>
+    function render_calendar(calander_id) {
+        var calendarEl = document.getElementById(calander_id);
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            aspectRatio: 2,
+            selectable: true,
+            editable: true,
+            locale: 'lt',
 
-         function render_calendar(calander_id) {
-            var calendarEl = document.getElementById(calander_id);
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                locale: 'lt',
-                headerToolbar: {left: 'prev,next,today', center: 'title',right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'}
-            });
-            calendar.render();
-        }
+            headerToolbar: {
+                left: 'prev,next,today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+            },
+            select: function (start, end, jsEvent, view) {
+                var abc = prompt('Enter Title');
+                var allDay = !start.hasTime && !end.hasTime;
+                var newEvent = new Object();
+                newEvent.title = abc;
+                newEvent.start = moment(start).format();
+                newEvent.allDay = false;
+                $('#calendar').fullCalendar('renderEvent', newEvent);
 
-    </script>
+            }
+        });
+        calendar.render();
+    }
+</script>
+
 </body>
 </html>

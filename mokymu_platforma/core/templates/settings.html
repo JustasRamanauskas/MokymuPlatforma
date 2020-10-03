@@ -1,5 +1,5 @@
 <h2>Vartotojų duomenys</h2>
-<form action="/settings/" method="post" id="settings_forma">
+<form action="/settings/" method="post" id="settings_forma" name="settings_forma">
     <div id="roll_type">
         <p><b>Roles:</b></p>
         {% for role in core_roles %}
@@ -7,7 +7,7 @@
         {% endfor %}
     </div>
     {% csrf_token %}
-    <form id="form_addroles">
+    <div id="form_addroles">
         <h2>Pasirinkite papildomas roles</h2>
         <div>
             <input type="checkbox" id="add_student" name="add_student" value="student">
@@ -19,7 +19,7 @@
             <input type="checkbox" id="add_provider_company" name="add_provider_company" value="provider_company">
             <label for="add_student">Mokymų organizatorius</label> <br>
         </div>
-    </form>
+    </div>
 
     {% if "client_company" in plain_roles %}
         <div id="client_company">

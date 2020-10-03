@@ -3,6 +3,7 @@ from mokymu_platforma.core.models import User, Roles, Client
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from django.http import HttpResponse
 
 
 def registracija(request):
@@ -72,5 +73,4 @@ def settings(request):
         client.company_code = request.POST.get('client_company_code')
         client.company_address = request.POST.get('client_company_address')
         client.save()
-    
-    return render(request, "settings.html")
+        return HttpResponse("Duomenys išsaugoti") #Čia tik tam kad parodyti kad veikia

@@ -1,36 +1,54 @@
 <div class="container-fluid">
-    <h1 class="mt-4">Dashboard</h1>
+    <h1 class="mt-4">{{ auth_user.first_name }} {{ auth_user.last_name }}</h1>
     <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active">Dashboard</li>
+        <li class="breadcrumb-item active">Pagrindinė informacija</li>
     </ol>
+
     <div class="row">
-        <div class="col-xl-3 col-md-6">
-            <div class="card bg-primary text-white mb-4">
-                <div class="card-body">Primary Card</div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">View Details</a>
-                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+        {% if "client_company" in plain_roles %}
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-primary text-white mb-4">
+                    <div class="card-body">Įmonė</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">
+                            <p>Įmonės pavadinimas: <b>{{ client.company_name }}</b></p>
+                            <p>Įmonės kodas: <b>{{ client.company_code }}</b></p>
+                            <p>Įmonės adresas: <b>{{ client.company_address }}</b></p>
+                        </a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="card bg-warning text-white mb-4">
-                <div class="card-body">Warning Card</div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">View Details</a>
-                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+        {% endif %}
+        {% if "provider_company" in plain_roles %}
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-warning text-white mb-4">
+                    <div class="card-body">Mokymus organizuojanti įmonė</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">
+                            <p>Įmonės pavadinimas: <b>{{ company.company_name }}</b></p>
+                            <p>Įmonės kodas: <b>{{ company.company_description }}</b></p>
+                        </a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="card bg-success text-white mb-4">
-                <div class="card-body">Success Card</div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">View Details</a>
-                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+        {% endif %}
+        {% if "student" in plain_roles %}
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-success text-white mb-4">
+                    <div class="card-body">Studentas</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">
+                            <p>Registracijos data: <b>{{ auth_user.last_login }}</b></p>
+                            <p>Statusas: <b>{{ student.status }}</b></p>
+                            <p>El paštas: <b> {{ auth_user.email }}</b></p>
+                        </a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
         <div class="col-xl-3 col-md-6">
             <div class="card bg-danger text-white mb-4">
                 <div class="card-body">Danger Card</div>

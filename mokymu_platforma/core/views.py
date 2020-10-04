@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 
-from mokymu_platforma.core.models import User, Roles, Client, Company, Teacher, Course
+from mokymu_platforma.core.models import User, Roles, Client, Company, Teacher, Course, Student
 
 
 def registracija(request):
@@ -61,10 +61,12 @@ def index(request):
     client = Client.objects.filter(role_id=roles.first()).first()
     company = Company.objects.filter(roles_id=roles.first()).first()
     teacher = Teacher.objects.filter(role_id=roles.first()).first()
+    student = Student.objects.filter(role_id=roles.first()).first()
     courses = Course.objects.all()
     return render(request, "index.html",
                   context={'auth_user': request.user, 'core_roles': roles, "plain_roles": plain_roles,
-                           'client': client, 'company': company, 'teacher': teacher, "courses": courses})
+                           'client': client, 'company': company, 'teacher': teacher, "courses": courses,
+                           "student": student})
 
 
 @login_required(login_url='/')

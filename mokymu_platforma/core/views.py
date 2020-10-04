@@ -61,9 +61,11 @@ def index(request):
     client = Client.objects.filter(role_id=roles.first()).first()
     company = Company.objects.filter(roles_id=roles.first()).first()
     teacher = Teacher.objects.filter(role_id=roles.first()).first()
+    users = User.objects.filter(roles__role_type="instructor").distinct().all()
+
     return render(request, "index.html",
                   context={'auth_user': request.user, 'core_roles': roles, "plain_roles": plain_roles,
-                           'client': client, 'company': company, 'teacher': teacher})
+                           'client': client, 'company': company, 'teacher': teacher, 'users': users})
 
 
 @login_required(login_url='/')
@@ -114,3 +116,11 @@ def course(request):
 
 def dashboard(request):
     return render(request, "dashboard.html")
+
+
+@login_required(login_url='/')
+def instructor(request):
+    pass
+    # users = User.objects.filter(roles__role_type="instructor").distinct().all()
+    # return render(request, "instructor.html",
+    #              context={'users': users})

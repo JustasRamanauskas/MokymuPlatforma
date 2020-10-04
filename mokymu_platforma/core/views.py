@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from mokymu_platforma.core.models import User, Roles, Client, Company
+from mokymu_platforma.core.models import User, Roles, Client, Company, Teacher
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
@@ -60,9 +60,10 @@ def index(request):
     plain_roles = [r.role_type for r in roles]
     client = Client.objects.filter(role_id=roles.first()).first()
     company = Company.objects.filter(roles_id=roles.first()).first()
+    teacher = Teacher.objects.filter(role_id=roles.first()).first()
     return render(request, "index.html",
                   context={'auth_user': request.user, 'core_roles': roles, "plain_roles": plain_roles,
-                           'client': client, 'company': company})
+                           'client': client, 'company': company, 'teacher': teacher})
 
 
 @login_required(login_url='/')
@@ -87,4 +88,12 @@ def settings(request):
             company.company_description = request.POST.get('provider_company_description')
             company.save()
 
-        return HttpResponse("Duomenys išsaugoti")  # Čia tik tam kad parodyti kad veikia
+        if role.role_type == 'instructor':
+            teacher = Teacher()
+            teacher.role_id = role
+            teacher.other_info = request.POST.get('teacher_description')
+            teacher.rating = request.POST.get('rating')
+            teacher.save()
+
+        #return HttpResponse("Duomenys išsaugoti")  # Čia tik tam kad parodyti kad veikia
+        return redirect(index)

@@ -113,5 +113,4 @@ def course(request):
 
 
 def dashboard(request):
-    return redirect(index)
-    # return render(request, "dashboard.html")
+    return render(request, "dashboard.html")

@@ -1,0 +1,9 @@
+
+<H2> Dėstytojai </H2>
+<div class="card-header"></div>
+<table>
+        {% for user in users %}
+            <p> {{ user.first_name }} {{ user.last_name }} {{ user.email}}</p>
+
+        {% endfor %}
+</table>

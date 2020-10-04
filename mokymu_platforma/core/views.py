@@ -61,15 +61,15 @@ def index(request):
     client = Client.objects.filter(role_id=roles.first()).first()
     company = Company.objects.filter(roles_id=roles.first()).first()
     teacher = Teacher.objects.filter(role_id=roles.first()).first()
+    courses = Course.objects.all()
     return render(request, "index.html",
                   context={'auth_user': request.user, 'core_roles': roles, "plain_roles": plain_roles,
-                           'client': client, 'company': company, 'teacher': teacher})
+                           'client': client, 'company': company, 'teacher': teacher, "courses": courses})
 
 
 @login_required(login_url='/')
 def settings(request):
     if request.method == "POST":
-
         vartotojas = User.objects.get(username=request.user.first_name)
         role = Roles.objects.filter(user_id=vartotojas.id).first()
 
@@ -101,11 +101,13 @@ def settings(request):
 
 @login_required(login_url='/')
 def course(request):
-    if request.method == "POST":
-        course = Course()
-        vartotojas = User.objects.get(username=request.user.first_name)
-        role = Roles.objects.filter(user_id=vartotojas.id).first()  # parenkama pirmoji rolė
+    if request.method == "GET":
+        courses = Course.objects.all()
+        return render(request, "course.html", context={"courses": courses})
 
+    if request.method == "POST":
+        vartotojas = User.objects.get(username=request.user.first_name)
+        course = Course()
         course.course_category = request.POST.get("input_course_category")
         course.course_description = request.POST.get("input_course_description")
         course.save()

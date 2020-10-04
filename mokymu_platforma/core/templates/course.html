@@ -1,10 +1,15 @@
 <H2> Įvesti mokymus </H2>
 <form action="/course/" method="post" id="course_forma" name="course_forma">
     {% csrf_token %}
+    <div class="card-body" class="form-group">
+        {% for course in courses %}
+            <div class="small mb-1">{{ course.course_category }} {{ course.course_description }}</div>
+        {% endfor %}
+    </div>
     <div>
         <div class="card-body">
             <div class="form-group">
-                <label class="form-control py-4" for="input_course_category"> veskite kursų kategoriją</label>
+                <label class="form-control py-4" for="input_course_category"> Įveskite kursų kategoriją</label>
                 <input class="small mb-1" id="input_course_category" name="input_course_category" type="text"/>
             </div>
             <div class="form-group">

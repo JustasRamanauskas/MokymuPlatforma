@@ -1,6 +1,6 @@
 <link href="../static/css/styles.css" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
-<div class="card-header"</div>
+<div class="card-header"></div>
 <h2>Vartotojų duomenys</h2>
 <form action="/settings/" method="post" id="settings_forma" name="settings_forma">
     <div id="roll_type">
@@ -44,7 +44,9 @@
                 </div>
             </div>
         </div>
-        <button class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Įrašyti pakeitimus</button>
+        <button class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Įrašyti
+            pakeitimus
+        </button>
     {% endif %}
 
 
@@ -111,17 +113,17 @@
             <br>
             <tr><b>Last Login: </b> {{ auth_user.last_login }} </tr>
         </div>
-         <div class="card-body">
-        <div class="form-group">
-            <label class="form-control py-4" for="teacher_description">Kvalifikacija</label>
-            <input class="small mb-1" id="teacher_description" name="teacher_description" type="text"/>
+        <div class="card-body">
+            <div class="form-group">
+                <label class="form-control py-4" for="teacher_description">Kvalifikacija</label>
+                <input class="small mb-1" id="teacher_description" name="teacher_description" type="text"/>
+            </div>
+            <div class="form-group">
+                <label class="form-control py-4" for="rating">Reitingas</label>
+                <input class="small mb-1" id="rating" name="rating" type="text"/>
+            </div>
+            <button class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Įvesti</button>
         </div>
-        <div class="form-group">
-            <label class="form-control py-4" for="rating">Reitingas</label>
-            <input class="small mb-1" id="rating" name="rating" type="text"/>
-        </div>
-        <button class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Įvesti</button>
-
     {% endif %}
     {% csrf_token %}
 

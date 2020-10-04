@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>Dashboard - SB Admin</title>
+    <title>Mokymu programa</title>
     <link href='{% static "css/styles.css" %}' rel="stylesheet"/>
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet"
           crossorigin="anonymous"/>
@@ -60,12 +60,10 @@
             <div class="sb-sidenav-menu">
                 <div class="nav">
                     <div class="sb-sidenav-menu-heading"></div>
-                    <a href="#" class="nav-link">
-                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i>
-                            <a data-links href="#dashboard"
-                               onclick="show_form(this,'dashboard', true)"> Dashboard </a>
+                    <a data-links href="#dashboard" class="nav-link"
+                        onclick="show_form(this,'dashboard')">
+                        <div class="sb-nav-link-icon"> <i class="fas fa-tachometer-alt"></i> Dashboard
                         </div>
-
                     </a>
                     <div class="sb-sidenav-menu-heading">Pagrindinis meniu</div>
                     {% if "provider_company" in plain_roles %}

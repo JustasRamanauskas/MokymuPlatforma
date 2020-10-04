@@ -75,6 +75,7 @@ def index(request):
 @login_required(login_url='/')
 def settings(request):
     if request.method == "POST":
+
         vartotojas = User.objects.get(username=request.user.first_name)
         role = Roles.objects.filter(user_id=vartotojas.id).first()
 

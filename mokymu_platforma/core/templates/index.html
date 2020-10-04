@@ -59,12 +59,15 @@
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
-                    <div class="sb-sidenav-menu-heading">Core</div>
-                    <a class="nav-link" href="index.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                        Dashboard
+                    <div class="sb-sidenav-menu-heading"></div>
+                    <a href="#" class="nav-link">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i>
+                            <a data-links href="#dashboard"
+                               onclick="show_form(this,'dashboard', true)"> Dashboard </a>
+                        </div>
+
                     </a>
-                    <div class="sb-sidenav-menu-heading">Interface</div>
+                    <div class="sb-sidenav-menu-heading">Pagrindinis meniu</div>
                     {% if "provider_company" in plain_roles %}
                         <a class="nav-link collapsed" id="mokymai" href="#" data-toggle="collapse"
                            data-target="#collapseMokymai"
@@ -76,8 +79,8 @@
                         <div class="collapse" id="collapseMokymai" aria-labelledby="headingOne"
                              data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-me nu-nested nav">
-                                <a data-links href="#pirmasLangas" class="nav-link"
-                                   onclick="show_form(this,'pirmasLangas', true)">Mokymai/Temos</a>
+                                <a data-links href="#new_course" class="nav-link"
+                                   onclick="show_form(this,'new_course', true)">Mokymai/Temos</a>
                                 <a data-links href="#antrasLangas" class="nav-link"
                                    onclick="show_form(this,'antrasLangas', true);render_calendar('calandar_mokymai')">Tvarkaraštis</a>
                                 <a data-links href="#treciasLangas" class="nav-link"
@@ -115,16 +118,17 @@
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
 
-                    <div class="collapse" id="collapseDestytojas" aria-labelledby="headingTwo"
-                         data-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a data-links href="#antrasLangas" class="nav-link"
+                        <div class="collapse" id="collapseDestytojas" aria-labelledby="headingTwo"
+                             data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a data-links href="#antrasLangas" class="nav-link"
                                    onclick="show_form(this,'antrasLangas', true);render_calendar('calandar_mokymai')">Tvarkaraštis</a>
-                            <a data-links href="#grupes" class="nav-link" onclick="show_form(this,'grupes')">Grupės</a>
-                            <a class="nav-link" href="layout-static.html">Užduotys</a>
-                            <a class="nav-link" href="layout-static.html">Ataskaita</a>
-                        </nav>
-                    </div>
+                                <a data-links href="#grupes" class="nav-link"
+                                   onclick="show_form(this,'grupes')">Grupės</a>
+                                <a class="nav-link" href="layout-static.html">Užduotys</a>
+                                <a class="nav-link" href="layout-static.html">Ataskaita</a>
+                            </nav>
+                        </div>
                     {% endif %}
                     {% if "client_company" in plain_roles %}
                         <a class="nav-link collapsed" id="klientas" href="#" data-toggle="collapse"
@@ -160,8 +164,11 @@
         <div data-content id="settings" hidden>
             {% include "settings.html" with core_roles=core_roles plain_roles=plain_roles %}
         </div>
-        <div data-content id="pirmasLangas" hidden>
-            {% include "pirmas.html" %}
+        <div data-content id="new_course" hidden>
+            {% include "course.html" %}
+        </div>
+        <div data-content id="dashboard" hidden>
+            {% include "dashboard.html" %}
         </div>
     </div>
 </div>
@@ -178,18 +185,18 @@
         {#                <div id='calendar'></div>#}
     </div>
 </div>
-        <div data-content id="antrasLangas" hidden>
-            <div class="container">
-                <div id='calandar_mokymai'></div>
-                </div>
+    <div data-content id="antrasLangas" hidden>
+        <div class="container">
+            <div id='calandar_mokymai'></div>
+        </div>
 
-        </div>
-        <div data-content id="treciasLangas" hidden>
-{#                <div id='calendar'></div>#}
-        </div>
-        <div data-content id="grupes" hidden>
-                {% include "grupes.html" %}
-        </div>
+    </div>
+    <div data-content id="treciasLangas" hidden>
+        {#                <div id='calendar'></div>#}
+    </div>
+    <div data-content id="grupes" hidden>
+        {% include "grupes.html" %}
+    </div>
 </div>
 
 <footer class="py-4 bg-light mt-auto">

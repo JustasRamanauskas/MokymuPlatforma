@@ -49,6 +49,7 @@
 
 
     {% if client is not None %}
+        <h2>Kliento informacija</h2>
         <p>Jūsų įmonės pavadinimas: <b>{{ client.company_name }}</b></p>
         <p>Jūsų įmonės kodas: <b>{{ client.company_code }}</b></p>
         <p>Jūsų įmonės adresas: <b>{{ client.company_address }}</b></p>
@@ -74,6 +75,7 @@
     {% endif %}
 
     {% if company is not None %}
+        <h2> Mokymus organizuojanti įmonė </h2>
         <p>Jūsų įmonės pavadinimas: <b>{{ company.company_name }}</b></p>
         <p>Jūsų įmonės aprašymas: <b>{{ company.company_description }}</b></p>
         <!--<a class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Keisti</a>-->
@@ -91,7 +93,7 @@
             </div>
             <div class="card-body">
                 <div class="form-group">
-                    <label>Asmens kodas</label>
+                    <label class="form-control py-4" for="student_personal_code">Asmens kodas</label>
                     <input class="small mb-1" id="student_personal_code" name="student_personal_code" type="text"/>
                 </div>
             </div>
@@ -109,6 +111,7 @@
             <br>
             <tr><b>Last Login: </b> {{ auth_user.last_login }} </tr>
         </div>
+         <div class="card-body">
         <div class="form-group">
             <label class="form-control py-4" for="teacher_description">Kvalifikacija</label>
             <input class="small mb-1" id="teacher_description" name="teacher_description" type="text"/>
@@ -118,6 +121,7 @@
             <input class="small mb-1" id="rating" name="rating" type="text"/>
         </div>
         <button class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Įvesti</button>
+
     {% endif %}
     {% csrf_token %}
 

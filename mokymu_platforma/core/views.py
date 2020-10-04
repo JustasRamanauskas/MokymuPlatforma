@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
-from mokymu_platforma.core.models import User, Roles, Client, Company, Teacher
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.http import HttpResponse
+from django.shortcuts import render, redirect
+
+from mokymu_platforma.core.models import User, Roles, Client, Company
 
 
 def registracija(request):
@@ -97,3 +98,19 @@ def settings(request):
 
         #return HttpResponse("Duomenys išsaugoti")  # Čia tik tam kad parodyti kad veikia
         return redirect(index)
+
+@login_required(login_url='/')
+def course(request):
+    if request.method == "POST":
+        course = Course()
+        vartotojas = User.objects.get(username=request.user.first_name)
+        role = Roles.objects.filter(user_id=vartotojas.id).first() # parenkama pirmoji rolė
+
+        course.course_category = request.POST.get("input_course_category")
+        course.course_description = request.POST.get("input_course_description")
+        course.save()
+        return redirect(index)
+
+def dashboard(request):
+    return redirect(index)
+    #return render(request, "dashboard.html")

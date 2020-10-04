@@ -18,7 +18,6 @@ class Company(models.Model):
 
 
 class Course(models.Model):
-    role_id = models.ForeignKey(Roles, on_delete=models.DO_NOTHING)
     course_category = models.CharField(max_length=200)
     course_description = models.TextField()
 

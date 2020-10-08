@@ -62,11 +62,12 @@ def index(request):
     company = Company.objects.filter(roles_id=roles.first()).first()
     teacher = Teacher.objects.filter(role_id=roles.first()).first()
     student = Student.objects.filter(role_id=roles.first()).first()
+    users = User.objects.filter(roles__role_type='instructor').distinct().all()
     courses = Course.objects.all()
     return render(request, "index.html",
                   context={'auth_user': request.user, 'core_roles': roles, "plain_roles": plain_roles,
                            'client': client, 'company': company, 'teacher': teacher, "courses": courses,
-                           "student": student})
+                           "student": student, 'users':users})
 
 
 @login_required(login_url='/')

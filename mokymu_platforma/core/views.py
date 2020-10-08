@@ -64,6 +64,8 @@ def index(request):
     student = Student.objects.filter(role_id=roles.first()).first()
     users = User.objects.filter(roles__role_type='instructor').distinct().all()
     courses = Course.objects.all()
+    users = User.objects.filter(roles__role_type="instructor").distinct().all()
+
     return render(request, "index.html",
                   context={'auth_user': request.user, 'core_roles': roles, "plain_roles": plain_roles,
                            'client': client, 'company': company, 'teacher': teacher, "courses": courses,

@@ -98,6 +98,12 @@ def settings(request):
             teacher.rating = request.POST.get('rating')
             teacher.save()
 
+        if role.role_type == 'student':
+            student = Student()
+            student.role_id = role
+            student.student_personalCode= request.POST.get('student_personal_code')
+            student.save()
+
         # return HttpResponse("Duomenys išsaugoti")  # Čia tik tam kad parodyti kad veikia
         return redirect(index)
 

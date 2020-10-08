@@ -83,7 +83,7 @@
         <!--<a class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Keisti</a>-->
     {% endif %}
 
-    {% if "student" in plain_roles %}
+    {% if "student" in plain_roles and student is None %}
         <div id="student>">
             <h2>Studento duomenys</h2>
             <div class="form-group">
@@ -101,6 +101,18 @@
             </div>
         </div>
         <button class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Įvesti</button>
+    {% endif %}
+
+    {% if student is not None %}
+        <h2> Studento duomenys </h2>
+        <tr> Your name: <b>{{ auth_user.first_name }}</b></tr>
+        <br>
+        <tr> Your surname: <b> {{ auth_user.last_name }}</b></tr>
+        <br>
+        <tr> Last Login: <b>{{ auth_user.last_login }}</b></tr>
+        <br>
+        <tr> Personal code: <b>{{student.student_personalCode }}</b></tr>
+        <!--<a class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Keisti</a>-->
     {% endif %}
 
 

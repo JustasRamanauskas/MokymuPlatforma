@@ -2,23 +2,25 @@
 <form action="/course/" method="post" id="course_forma" name="course_forma">
     {% csrf_token %}
 
-<table>
-    <tr>
-        <th>Kurso kategorija</th>
-        <th>Kurso aprašymas</th>
-    </tr>
-    <div class="card-body" class="form-group">
+    <table>
+        <tr>
+            <th>Kurso kategorija</th>
+            <th>Kurso aprašymas</th>
+        </tr>
         {% for course in courses %}
-            <tr>
-                <td><div class="small mb-1">{{ course.course_category }} </div></td>
-                <td><div class="small mb-1">{{ course.course_description }}</div></td>
+            <tr class="card-body form-group">
+                <td>
+                    <div class="small mb-1">{{ course.course_category }} </div>
+                </td>
+                <td>
+                    <div class="small mb-1">{{ course.course_description }}</div>
+                </td>
             </tr>
 
         {% endfor %}
-    </div>
-</table>
+    </table>
 
-<H2> Įvesti naują mokymą </H2>
+    <H2> Įvesti naują mokymą </H2>
     <div>
         <div class="card-body">
             <div class="form-group">

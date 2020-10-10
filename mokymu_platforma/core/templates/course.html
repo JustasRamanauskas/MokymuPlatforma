@@ -1,29 +1,8 @@
 <link href="../static/css/styles.css" rel="stylesheet"/>
 
-<p></p>
-<div class="container-sm text-center w-75">
-    <H3> Vykstantys mokymai </H3>
-    <form action="/course/" method="post" id="course_forma" name="course_forma">
+
+<form action="/course/" method="post" id="course_forma" name="course_forma">
         {% csrf_token %}
-
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Kurso kategorija</th>
-                <th scope="col">Kurso aprašymas</th>
-            </tr>
-            </thead>
-            {% for course in courses %}
-                <tbody>
-                <tr>
-                    <td class="text-center small mb-1">{{ course.course_category }} </td>
-                    <td class="text-center small mb-1">{{ course.course_description }}</td>
-                </tr>
-
-                </tbody>
-
-            {% endfor %}
-        </table>
 
     <H2> Įvesti naują mokymą </H2>
     <div>
@@ -66,4 +45,3 @@
         <a class="btn btn-primary" onclick="document.getElementById('course_forma').submit()">Įvesti</a>
     </div>
 </form>
-</div>

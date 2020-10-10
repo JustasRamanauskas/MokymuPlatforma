@@ -78,8 +78,8 @@
                         <div class="collapse" id="collapseMokymai" aria-labelledby="headingOne"
                              data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-me nu-nested nav">
-                                <a data-links href="#new_course" class="nav-link"
-                                   onclick="show_form(this,'new_course', true)">Mokymai/Temos</a>
+                                <a data-links href="#course_list" class="nav-link"
+                                   onclick="show_form(this,'course_list', true)">Mokymai/Temos</a>
                                 <a data-links href="#new_course" class="nav-link"
                                    onclick="show_form(this,'new_course', true)">Įvesti mokymus</a>
                                 <a data-links href="#antrasLangas" class="nav-link"
@@ -169,6 +169,9 @@
         </div>
         <div data-content id="new_course" hidden>
             {% include "course.html" %}
+        </div>
+        <div data-content id="course_list" hidden>
+            {% include "course_list.html" %}
         </div>
         <div data-content id="instructor" hidden>
             {% include "instructor.html" %}

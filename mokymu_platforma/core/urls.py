@@ -12,5 +12,6 @@ urlpatterns = [
     path('course/', course),
     path('dashboard/', dashboard),
     path('instructor/', instructor),
-    path('studentai/', studentai)
+    path('studentai/', studentai),
+    path('course_list/', course)
 ]

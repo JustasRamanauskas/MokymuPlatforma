@@ -168,3 +168,7 @@ def instructor(request):
 def studentai(request):
     pass
 
+@login_required(login_url='/')
+def course_list(request):
+    pass
+

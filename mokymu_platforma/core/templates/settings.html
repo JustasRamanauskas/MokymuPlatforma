@@ -92,8 +92,11 @@
 
         {% if company is not None %}
             <h3> Mokymus organizuojanti įmonė </h3>
-            <p>Jūsų įmonės pavadinimas: <b>{{ company.company_name }}</b></p>
-            <p>Jūsų įmonės aprašymas: <b>{{ company.company_description }}</b></p>
+            <p>Jūsų įmonės pavadinimas:
+                <br>
+                <b>{{ company.company_name }}</b>
+            </p>
+            <p>Jūsų įmonės aprašymas:<br> <b>{{ company.company_description }}</b></p>
             <!--<a class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Keisti</a>-->
         {% endif %}
 

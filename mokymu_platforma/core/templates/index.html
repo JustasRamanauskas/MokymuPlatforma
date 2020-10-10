@@ -141,8 +141,10 @@
                     <div class="collapse" id="collapseKlientas" aria-labelledby="headingTwo"
                          data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="layout-static.html">Tvarkaraštis</a>
-                            <a class="nav-link" href="layout-static.html">Dėstytojai</a>
+                            <a data-links href="#antrasLangas" class="nav-link"
+                                   onclick="show_form(this,'antrasLangas', true);render_calendar('calandar_mokymai')">Tvarkaraštis</a>
+                            <a data-links href="#instructor" class="nav-link"
+                                   onclick="show_form(this,'instructor', true)">Dėstytojai</a>
                             <a class="nav-link" href="layout-static.html">Pažymėjimai/Atestatai</a>
                             <a class="nav-link" href="layout-static.html">Ataskaita</a>
                         </nav>
@@ -168,7 +170,9 @@
         <div data-content id="instructor" hidden>
             {% include "instructor.html" %}
         </div>
-        <div data-content id="dashboard" hidden>
+        <div data-content id="dashboard">
+
+
             {% include "dashboard.html" %}
         </div>
     </div>

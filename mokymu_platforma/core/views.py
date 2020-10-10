@@ -70,6 +70,8 @@ def index(request):
                            "student": student, 'users':users})
 
 
+
+
 @login_required(login_url='/')
 def settings(request):
     if request.method == "POST":
@@ -125,3 +127,11 @@ def course(request):
 
 def dashboard(request):
     return render(request, "dashboard.html")
+
+
+@login_required(login_url='/')
+def instructor(request):
+    pass
+    # users = User.objects.filter(roles__role_type="instructor").distinct().all()
+    # return render(request, "instructor.html",
+    #              context={'users': users})

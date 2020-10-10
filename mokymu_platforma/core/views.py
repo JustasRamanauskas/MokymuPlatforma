@@ -63,13 +63,16 @@ def index(request):
     company = Company.objects.filter(roles_id=roles.first()).first()
     teacher = Teacher.objects.filter(role_id=roles.first()).first()
     student = Student.objects.filter(role_id=roles.first()).first()
+    studentu_sarasas = User.objects.filter(roles__role_type='student').distinct().all()
+    users = User.objects.filter(roles__role_type='instructor').distinct().all()
     courses = Course.objects.all()
     instructor_users = User.objects.filter(roles__role_type="instructor").distinct().all()
 
     return render(request, "index.html",
                   context={'auth_user': request.user, 'core_roles': roles, "plain_roles": plain_roles,
                            'client': client, 'company': company, 'teacher': teacher, "courses": courses,
-                           "student": student, 'instructor_users': instructor_users})
+                           "student": student, 'instructor_users': instructor_users,
+                           'studentu_sarasas': studentu_sarasas})
 
 
 
@@ -160,6 +163,8 @@ def dashboard(request):
 @login_required(login_url='/')
 def instructor(request):
     pass
-    # users = User.objects.filter(roles__role_type="instructor").distinct().all()
-    # return render(request, "instructor.html",
-    #              context={'users': users})
+
+@login_required(login_url='/')
+def studentai(request):
+    pass
+

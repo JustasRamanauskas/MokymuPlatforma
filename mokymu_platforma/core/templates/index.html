@@ -35,10 +35,11 @@
         }
     </script>
 </head>
+
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <a class="navbar-brand"> Sveiki atvykę: {{ auth_user.first_name }}  </a>
-    <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i>
+    <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle"><i class="fas fa-bars"></i>
     </button>
     <!-- Navbar-->
     <ul class="navbar-nav d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -84,7 +85,8 @@
                                    onclick="show_form(this,'antrasLangas', true);render_calendar('calandar_mokymai')">Tvarkaraštis</a>
                                 <a data-links href="#instructor" class="nav-link"
                                    onclick="show_form(this,'instructor', true)">Dėstytojai</a>
-                                <a class="nav-link" href="layout-static.html">Studentai</a>
+                                <a data-links href="#student" class="nav-link"
+                                   onclick="show_form(this,'student', true)">Studentai</a>
                                 <a class="nav-link" href="layout-static.html">Ataskaita</a>
                             </nav>
                         </div>
@@ -170,6 +172,9 @@
         <div data-content id="instructor" hidden>
             {% include "instructor.html" %}
         </div>
+        <div data-content id="student" hidden>
+            {% include "studentai.html" %}
+        </div>
         <div data-content id="dashboard">
             <div data-content id="dashboard">
                 {% include "dashboard.html" %}
@@ -181,8 +186,6 @@
             <div class="container">
                 <div id='calandar_mokymai'></div>
             </div>
-
-
             {% include "dashboard.html" %}
         </div>
     </div>
@@ -193,26 +196,26 @@
             <div id='calandar_mokymai'></div>
         </div>
 
-        </div>
     </div>
-    <div id="main_content_area">
-        <div data-content id="treciasLangas" hidden>
-            {#                <div id='calendar'></div>#}
-        </div>
-    </div>
-    <div data-content id="antrasLangas" hidden>
-        <div class="container">
-            <div id='calandar_mokymai'></div>
-        </div>
-
-    </div>
+</div>
+<div id="main_content_area">
     <div data-content id="treciasLangas" hidden>
         {#                <div id='calendar'></div>#}
     </div>
-    <div data-content id="grupes" hidden>
-        {% include "grupes.html" %}
-    </div>
 </div>
+<div data-content id="antrasLangas" hidden>
+    <div class="container">
+        <div id='calandar_mokymai'></div>
+    </div>
+
+</div>
+<div data-content id="treciasLangas" hidden>
+    {#                <div id='calendar'></div>#}
+</div>
+<div data-content id="grupes" hidden>
+    {% include "grupes.html" %}
+</div>
+
 
 <footer class="py-4 bg-light mt-auto">
     <div class="container-fluid">
@@ -226,7 +229,7 @@
         </div>
     </div>
 </footer>
-</div>
+
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>

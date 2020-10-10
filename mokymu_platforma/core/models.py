@@ -54,7 +54,7 @@ class CoursesGroup(models.Model):
     course_teacher_id = models.ForeignKey(Teacher, on_delete=models.DO_NOTHING)
     course_group_description = models.TextField()
     course_group_price = models.IntegerField()
-    course_pricing_id = models.ForeignKey(Pricing, on_delete=models.DO_NOTHING)
+    #course_pricing_id = models.ForeignKey(Pricing, on_delete=models.DO_NOTHING) #pradžioje nenaudojame
 
 
 class Client(models.Model):

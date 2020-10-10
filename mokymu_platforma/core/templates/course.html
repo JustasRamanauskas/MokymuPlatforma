@@ -1,40 +1,17 @@
 <link href="../static/css/styles.css" rel="stylesheet"/>
-
 <p></p>
-<div class="container-sm text-center w-75">
-    <H3> Vykstantys mokymai </H3>
-    <form action="/course/" method="post" id="course_forma" name="course_forma">
-        {% csrf_token %}
-
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Kurso kategorija</th>
-                <th scope="col">Kurso aprašymas</th>
-            </tr>
-            </thead>
-            {% for course in courses %}
-                <tbody>
-                <tr>
-                    <td class="text-center small mb-1">{{ course.course_category }} </td>
-                    <td class="text-center small mb-1">{{ course.course_description }}</td>
-                </tr>
-
-                </tbody>
-
-            {% endfor %}
-        </table>
-
-    <H2> Įvesti naują mokymą </H2>
+<div class="container-sm text-center w-50">
+    <H3> Įvesti naują mokymą </H3>
     <div>
         <div class="card-body">
             <div class="form-group">
-                <label class="form-control py-4" for="input_course_category"> Įveskite kursų kategoriją</label>
-                <input class="small mb-1" id="input_course_category" name="input_course_category" type="text"/>
-            </div>
-            <div class="form-group">
-                <label class="form-control py-4" for="input_course_description">Įveskite kursų aprašymą</label>
-                <input class="small mb-1" id="input_course_description" name="input_course_description" type="text"/>
+                <label class="table-responsive" for="input_course_category">Pasirink kursų kategoriją</label>
+                <select class="form-control" name="input_course_category" id="input_course_category" required>
+                    {% for course in courses %}
+                        <option value="{{ course.course_category }}">{{ course.course_description }}</option>
+                    {% endfor %}
+                </select>
+            <button class="btn btn-primary" onclick="document.getElementById('course_forma').submit()">sukurti nauja kategorija</button>
             </div>
             <div class="form-group" id="choose_teacher">
                 <label class="small mb-1" for="role">Pasirinkite dėstytoją</label>
@@ -45,41 +22,25 @@
                 </select>
             </div>
             <div class="form-group">
-                <label class="form-control py-4" for="input_course_price">Įveskite kursų kainą</label>
-                <input class="small mb-1" id="input_course_price" name="input_course_price" type="text"/>
+                <label class="table-responsive" for="input_course_price">Įveskite kursų kainą</label>
+                <input class="form-control text-center" id="input_course_price" name="input_course_price" type="text"/>
             </div>
             <div class="form-group">
-                <label class="form-control py-4" for="input_start_theory_date">Kursų teorijos data</label>
+                <label class="table-responsive" for="input_start_theory_date">Kursų teorijos data</label>
                 <input class="small mb-1" id="input_start_theory_date" name="input_start_theory_date" type="date"/>
                 <input class="small mb-1" id="input_finish_theory_date" name="input_finish_theory_date" type="date"/>
             </div>
             <div class="form-group">
-                <label class="form-control py-4" for="input_start_theory_date">Kursų praktikos data</label>
+                <label class="table-responsive" for="input_start_theory_date">Kursų praktikos data</label>
                 <input class="small mb-1" id="input_start_practice_date" name="input_start_practice_date" type="date"/>
-                <input class="small mb-1" id="input_finish_practice_date" name="input_finish_practice_date" type="date"/>
+                <input class="small mb-1" id="input_finish_practice_date" name="input_finish_practice_date"
+                       type="date"/>
             </div>
             <div class="form-group">
-                <label class="form-control py-4" for="input_exam_date">Kursų egzamino data</label>
+                <label class="table-responsive" for="input_exam_date">Kursų egzamino data</label>
                 <input class="small mb-1" id="input_exam_date" name="input_exam_date" type="date"/>
             </div>
         </div>
-        <a class="btn btn-primary" onclick="document.getElementById('course_forma').submit()">Įvesti</a>
+        <button class="btn btn-primary" onclick="document.getElementById('course_forma').submit()">Įvesti</button>
     </div>
-</form>
-        <H3> Įvesti naują mokymą </H3>
-        <div>
-            <div class="card-body">
-                <div class="form-group">
-                    <label class="form-control py-4" for="input_course_category"> Įveskite kursų kategoriją</label>
-                    <input class="small mb-1" id="input_course_category" name="input_course_category" type="text"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control py-4" for="input_course_description">Įveskite kursų aprašymą</label>
-                    <input class="small mb-1" id="input_course_description" name="input_course_description"
-                           type="text"/>
-                </div>
-            </div>
-            <button class="btn btn-primary" onclick="document.getElementById('course_forma').submit()">Įvesti</button>
-        </div>
-    </form>
 </div>

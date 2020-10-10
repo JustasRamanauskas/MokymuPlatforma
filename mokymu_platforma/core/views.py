@@ -157,7 +157,7 @@ def course(request):
 
 
 def dashboard(request):
-    return render(request, "dashboard.html")
+    index()
 
 
 @login_required(login_url='/')

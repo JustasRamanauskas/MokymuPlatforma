@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 
-from mokymu_platforma.core.models import User, Roles, Client, Company, Teacher, Course, Student
+from mokymu_platforma.core.models import User, Roles, Client, Company, Teacher
+from mokymu_platforma.core.models import Course, Student, CoursesCompany, CoursesGroup, ScheduleCourse
 
 
 def registracija(request):
@@ -62,14 +63,13 @@ def index(request):
     company = Company.objects.filter(roles_id=roles.first()).first()
     teacher = Teacher.objects.filter(role_id=roles.first()).first()
     student = Student.objects.filter(role_id=roles.first()).first()
-    users = User.objects.filter(roles__role_type='instructor').distinct().all()
     courses = Course.objects.all()
-    users = User.objects.filter(roles__role_type="instructor").distinct().all()
+    instructor_users = User.objects.filter(roles__role_type="instructor").distinct().all()
 
     return render(request, "index.html",
                   context={'auth_user': request.user, 'core_roles': roles, "plain_roles": plain_roles,
                            'client': client, 'company': company, 'teacher': teacher, "courses": courses,
-                           "student": student, 'users':users})
+                           "student": student, 'instructor_users': instructor_users})
 
 
 
@@ -121,10 +121,35 @@ def course(request):
 
     if request.method == "POST":
         vartotojas = User.objects.get(username=request.user.first_name)
+        company = Company.objects.get(roles_id__user_id=vartotojas)
         course = Course()
         course.course_category = request.POST.get("input_course_category")
         course.course_description = request.POST.get("input_course_description")
         course.save()
+
+        course_company = CoursesCompany()
+        course_company.company_id = company
+        course_company.course_id = course
+        course_company.save()
+
+        courses_group = CoursesGroup()
+        courses_group.course_company_id = course_company
+        courses_group.course_teacher_id = Teacher.objects.get(role_id__user_id = int(request.POST.get("input_teacher")))
+        courses_group.course_group_description = request.POST.get("input_course_description")
+        courses_group.course_group_price = request.POST.get("input_course_price")
+        courses_group.save()
+
+        schedule_course = ScheduleCourse()
+        schedule_course.course_group_id = courses_group
+        schedule_course.start_date = request.POST.get('input_start_theory_date')
+        schedule_course.finish_date = request.POST.get('input_exam_date')
+        schedule_course.start_theory_date = request.POST.get('input_start_theory_date')
+        schedule_course.finish_theory_date = request.POST.get('input_finish_theory_date')
+        schedule_course.start_practice_date = request.POST.get('input_start_practice_date')
+        schedule_course.finish_practice_date = request.POST.get('input_finish_practice_date')
+        schedule_course.exam_date = request.POST.get('input_exam_date')
+        schedule_course.save()
+
         return redirect(index)
 
 

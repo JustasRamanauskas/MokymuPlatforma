@@ -127,10 +127,7 @@ def course(request):
     if request.method == "POST":
         vartotojas = User.objects.get(username=request.user.first_name)
         company = Company.objects.get(roles_id__user_id=vartotojas)
-        course = Course()
-        course.course_category = request.POST.get("input_course_category")
-        course.course_description = request.POST.get("input_course_description")
-        course.save()
+        course = Course.objects.get(id=int(request.POST.get("choose_course")))
 
         course_company = CoursesCompany()
         course_company.company_id = company
@@ -140,7 +137,7 @@ def course(request):
         courses_group = CoursesGroup()
         courses_group.course_company_id = course_company
         courses_group.course_teacher_id = Teacher.objects.get(role_id__user_id = int(request.POST.get("input_teacher")))
-        courses_group.course_group_description = request.POST.get("input_course_description")
+        courses_group.course_group_description = course.course_description
         courses_group.course_group_price = request.POST.get("input_course_price")
         courses_group.save()
 

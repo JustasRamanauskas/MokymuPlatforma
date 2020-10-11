@@ -6,10 +6,10 @@
     <div>
         <div class="card-body">
             <div class="form-group">
-                <label class="table-responsive" for="input_course_category">Pasirink kursų kategoriją</label>
-                <select class="form-control" name="input_course_category" id="input_course_category" required>
+                <label class="table-responsive" for="choose_course">Pasirink kursus</label>
+                <select class="form-control" name="choose_course" id="choose_course" required>
                     {% for course in courses %}
-                        <option value="{{ course.course_category }}">{{ course.course_description }}</option>
+                        <option value="{{ course.id }}">{{ course.course_category }} / {{ course.course_description }}</option>
                     {% endfor %}
                 </select>
                 <button class="btn btn-primary" type="button"

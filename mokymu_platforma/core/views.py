@@ -1,5 +1,4 @@
 import json
-
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
@@ -70,7 +69,6 @@ def index(request):
     courses = Course.objects.all()
     instructor_users = User.objects.filter(roles__role_type="instructor").distinct().all()
     schedule_courses = ScheduleCourse.objects.all()
-    schedule_course = ScheduleCourse.objects.all()
     contract_student_list = set(ContractStudent.objects.filter(student_id=student).values_list('schedule_course_id_id', flat=True))
 
 
@@ -78,8 +76,7 @@ def index(request):
                   context={'auth_user': request.user, 'core_roles': roles, "plain_roles": plain_roles,
                            'client': client, 'company': company, 'teacher': teacher, "courses": courses,
                            "student": student, 'instructor_users': instructor_users,
-                           'studentu_sarasas': studentu_sarasas, 'schedule_courses': schedule_courses,
-                           "schedule_course": schedule_course, 'contract_student_list': contract_student_list})
+                           'studentu_sarasas': studentu_sarasas, 'schedule_courses': schedule_courses, 'contract_student_list': contract_student_list})
 
 @login_required(login_url='/')
 def settings(request):

@@ -4,16 +4,16 @@
         background: #f7f7f7 !important;
     }
 </style>
-<div class="container-sm text-center w-25">
+<form class="container-sm text-center w-25">
     <h3>Vartotojų duomenys</h3>
     <form action="/settings/" method="post" id="settings_forma" name="settings_forma">
+        {% csrf_token %}
         <div id="roll_type">
             <p><b>Roles:</b></p>
             {% for role in core_roles %}
                 <tr> {{ role.role_type }} </tr>
             {% endfor %}
         </div>
-        {% csrf_token %}
         <br>
         <!--
             <div id="form_addroles">
@@ -49,12 +49,11 @@
                         <input class="form-control text-center" id="client_company_address"
                                name="client_company_address" type="text"/>
                     </div>
-                    <button class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Įrašyti
-                        pakeitimus
-                    </button>
+                    <input class="btn btn-primary" id="client_company" name="client_company"
+                           onclick="onclick_button(this)"
+                           type="button" value="Įrašyti pakeitimus"/>
                 </div>
             </div>
-
         {% endif %}
 
 
@@ -81,9 +80,9 @@
                                name="provider_company_description"
                                type="text"/>
                     </div>
-                    <button class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Įrašyti
-                        pakeitimus
-                    </button>
+                    <input class="btn btn-primary" id="provider_company" name="provider_company"
+                           onclick="onclick_button(this)"
+                           type="button" value="Įrašyti pakeitimus"/>
                 </div>
             </div>
         {% endif %}
@@ -115,9 +114,9 @@
                         <input class="form-control text-center" id="student_personal_code" name="student_personal_code"
                                type="text"/>
                     </div>
-                    <button class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Įrašyti
-                        pakeitimus
-                    </button>
+                    <input class="btn btn-primary" id="student" name="student"
+                           onclick="onclick_button(this)"
+                           type="button" value="Įrašyti pakeitimus"/>
                 </div>
             </div>
 
@@ -127,13 +126,12 @@
             <h2> Studento duomenys </h2>
             <tr><b>Your name:</b> {{ auth_user.first_name }}</tr>
             <br>
-            <tr><b>Your surname:</b>  {{ auth_user.last_name }}</tr>
+            <tr><b>Your surname:</b> {{ auth_user.last_name }}</tr>
             <br>
             <tr><b> Last Login:</b>
                 <br>{{ auth_user.last_login }}</tr>
             <br>
             <tr><b> Personal code:</b> {{ student.student_personalCode }}</tr>
-            <!--<a class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Keisti</a>-->
         {% endif %}
 
 
@@ -157,12 +155,11 @@
                     <label class="table-responsive" for="rating">Reitingas</label>
                     <input class="form-control text-center" id="rating" name="rating" type="text"/>
                 </div>
-                <button class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Įrašyti
-                    pakeitimus
-                </button>
+                <input class="btn btn-primary" id="instructor" name="instructor"
+                       onclick="onclick_button(this)"
+                       type="button" value="Įrašyti pakeitimus"/>
             </div>
         {% endif %}
-        {% csrf_token %}
 
         {% if teacher is not None %}
             <div class="form-group">
@@ -175,10 +172,55 @@
                     {{ auth_user.last_login }} </tr>
             </div>
             <p><b>Jūsų kvalifikacija:</b> {{ teacher.other_info }}</p>
-            <p><b>Jūsų ratingas:</b> {{ teacher.rating }}</p>
+            <p><b>Jūsų reitingas:</b> {{ teacher.rating }}</p>
             <!--<a class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Keisti</a>-->
         {% endif %}
         <!--<a class="btn btn-primary" onclick="document.getElementById('settings_forma').submit()">Įvesti</a>-->
     </form>
-    <p></p>
-</div>
+</form>
+
+<script>
+    function onclick_button(el) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/settings/');
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                el.value = "Įvestas";
+                location.reload();
+            }
+        };
+
+        switch (el.getAttribute('id')) {
+            case 'client_company':
+                xhr.send(JSON.stringify({
+                    role_type: el.getAttribute('id'),
+                    client_company_name: document.getElementById("client_company_name").value,
+                    client_company_code: document.getElementById("client_company_code").value,
+                    client_company_address: document.getElementById("client_company_address").value,
+                }));
+                break;
+            case 'provider_company':
+                xhr.send(JSON.stringify({
+                    role_type: el.getAttribute('id'),
+                    provider_company_name: document.getElementById("provider_company_name").value,
+                    provider_company_description: document.getElementById("provider_company_description").value,
+                }));
+                break;
+            case 'student' :
+                xhr.send(JSON.stringify({
+                    role_type: el.getAttribute('id'),
+                    student_personal_code: document.getElementById("student_personal_code").value,
+                }));
+                break;
+            case 'instructor':
+                xhr.send(JSON.stringify({
+                    role_type: el.getAttribute('id'),
+                    teacher_description: document.getElementById("teacher_description").value,
+                    rating: document.getElementById("rating").value,
+                }));
+                break;
+        }
+    }
+</script>

@@ -61,16 +61,16 @@ def index(request):
     vartotojas = User.objects.get(username=request.user.first_name)
     roles = Roles.objects.filter(user_id=vartotojas.id)
     plain_roles = [r.role_type for r in roles]
-    client = Client.objects.filter(role_id=roles.first()).first()
-    company = Company.objects.filter(roles_id=roles.first()).first()
-    teacher = Teacher.objects.filter(role_id=roles.first()).first()
-    student = Student.objects.filter(role_id=roles.first()).first()
+    client = Client.objects.filter(role_id=roles.filter(role_type="client_company").first()).first()
+    company = Company.objects.filter(roles_id=roles.filter(role_type="provider_company").first()).first()
+    teacher = Teacher.objects.filter(role_id=roles.filter(role_type="instructor").first()).first()
+    student = Student.objects.filter(role_id=roles.filter(role_type="student").first()).first()
     studentu_sarasas = User.objects.filter(roles__role_type='student').distinct().all()
     courses = Course.objects.all()
     instructor_users = User.objects.filter(roles__role_type="instructor").distinct().all()
     schedule_courses = ScheduleCourse.objects.all()
-    contract_student_list = set(ContractStudent.objects.filter(student_id=student).values_list('schedule_course_id_id', flat=True))
-
+    contract_student_list = set(
+        ContractStudent.objects.filter(student_id=student).values_list('schedule_course_id_id', flat=True))
 
     return render(request, "index.html",
                   context={'auth_user': request.user, 'core_roles': roles, "plain_roles": plain_roles,
@@ -79,43 +79,46 @@ def index(request):
                            'studentu_sarasas': studentu_sarasas, 'schedule_courses': schedule_courses,
                            'contract_student_list': contract_student_list})
 
+
 @login_required(login_url='/')
 def settings(request):
     if request.method == "POST":
+        user = User.objects.get(username=request.user.first_name)
+        data = json.loads(request.body)
+        role_type = data["role_type"]
+        role = Roles.objects.get(role_type=role_type, user_id=user)
 
-        vartotojas = User.objects.get(username=request.user.first_name)
-        role = Roles.objects.filter(user_id=vartotojas.id).first()
-
-        if role.role_type == 'client_company':
+        if role_type == 'client_company':
             client = Client()
             client.role_id = role
-            client.company_name = request.POST.get('client_company_name')
-            client.company_code = request.POST.get('client_company_code')
-            client.company_address = request.POST.get('client_company_address')
+            client.company_name = data['client_company_name']
+            client.company_code = data['client_company_code']
+            client.company_address = data['client_company_address']
             client.save()
+            return HttpResponse(status=200)
 
-        if role.role_type == 'provider_company':
+        if role_type == 'provider_company':
             company = Company()
             company.roles_id = role
-            company.company_name = request.POST.get('provider_company_name')
-            company.company_description = request.POST.get('provider_company_description')
+            company.company_name = data['provider_company_name']
+            company.company_description = data['provider_company_description']
             company.save()
+            return HttpResponse(status=200)
 
-        if role.role_type == 'instructor':
+        if role_type == 'instructor':
             teacher = Teacher()
             teacher.role_id = role
-            teacher.other_info = request.POST.get('teacher_description')
-            teacher.rating = request.POST.get('rating')
+            teacher.other_info = data['teacher_description']
+            teacher.rating = data['rating']
             teacher.save()
+            return HttpResponse(status=200)
 
-        if role.role_type == 'student':
+        if role_type == 'student':
             student = Student()
             student.role_id = role
-            student.student_personalCode= request.POST.get('student_personal_code')
+            student.student_personalCode = data['student_personal_code']
             student.save()
-
-        # return HttpResponse("Duomenys išsaugoti")  # Čia tik tam kad parodyti kad veikia
-        return redirect(index)
+            return HttpResponse(status=200)
 
 
 @login_required(login_url='/')
@@ -136,7 +139,7 @@ def course(request):
 
         courses_group = CoursesGroup()
         courses_group.course_company_id = course_company
-        courses_group.course_teacher_id = Teacher.objects.get(role_id__user_id = int(request.POST.get("input_teacher")))
+        courses_group.course_teacher_id = Teacher.objects.get(role_id__user_id=int(request.POST.get("input_teacher")))
         courses_group.course_group_description = course.course_description
         courses_group.course_group_price = request.POST.get("input_course_price")
         courses_group.save()
@@ -154,6 +157,7 @@ def course(request):
 
         return redirect(index)
 
+
 @login_required(login_url='/')
 def dashboard(request):
     redirect(index)
@@ -163,13 +167,16 @@ def dashboard(request):
 def instructor(request):
     pass
 
+
 @login_required(login_url='/')
 def studentai(request):
     pass
 
+
 @login_required(login_url='/')
 def course_list(request):
     pass
+
 
 @login_required(login_url='/')
 def new_course_input(request):
@@ -179,6 +186,7 @@ def new_course_input(request):
         course.course_description = request.POST.get("input_course_description")
         course.save()
     return redirect(index)
+
 
 @login_required(login_url='/')
 def register_student_for_course(request):

@@ -1,10 +1,12 @@
+import json
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-from mokymu_platforma.core.models import User, Roles, Client, Company, Teacher
-from mokymu_platforma.core.models import Course, Student, CoursesCompany, CoursesGroup, ScheduleCourse
+from mokymu_platforma.core.models import User, Roles, Client, Company, Teacher, Course, Student
+from mokymu_platforma.core.models import CoursesCompany, CoursesGroup, ScheduleCourse, ContractStudent
 
 
 def registracija(request):
@@ -64,19 +66,18 @@ def index(request):
     teacher = Teacher.objects.filter(role_id=roles.first()).first()
     student = Student.objects.filter(role_id=roles.first()).first()
     studentu_sarasas = User.objects.filter(roles__role_type='student').distinct().all()
-
     courses = Course.objects.all()
     instructor_users = User.objects.filter(roles__role_type="instructor").distinct().all()
-    schedule_course = ScheduleCourse.objects.all()
+    schedule_courses = ScheduleCourse.objects.all()
+    contract_student_list = set(ContractStudent.objects.filter(student_id=student).values_list('schedule_course_id_id', flat=True))
+
 
     return render(request, "index.html",
                   context={'auth_user': request.user, 'core_roles': roles, "plain_roles": plain_roles,
                            'client': client, 'company': company, 'teacher': teacher, "courses": courses,
                            "student": student, 'instructor_users': instructor_users,
-                           'studentu_sarasas': studentu_sarasas, "schedule_course": schedule_course})
-
-
-
+                           'studentu_sarasas': studentu_sarasas, 'schedule_courses': schedule_courses,
+                           'contract_student_list': contract_student_list})
 
 @login_required(login_url='/')
 def settings(request):
@@ -156,9 +157,9 @@ def course(request):
 
         return redirect(index)
 
-
+@login_required(login_url='/')
 def dashboard(request):
-    index()
+    redirect(index)
 
 
 @login_required(login_url='/')
@@ -181,3 +182,16 @@ def new_course_input(request):
         course.course_description = request.POST.get("input_course_description")
         course.save()
     return redirect(index)
+
+@login_required(login_url='/')
+def register_student_for_course(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        schedule_course = ScheduleCourse.objects.get(id=data['course_id'])
+        user = request.user
+        contract_student = ContractStudent()
+        contract_student.schedule_course_id = schedule_course
+        contract_student.student_id = Student.objects.get(role_id__user_id=user)
+        contract_student.price = schedule_course.course_group_id.course_group_price
+        contract_student.save()
+        return HttpResponse(status=200)

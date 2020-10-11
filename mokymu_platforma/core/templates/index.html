@@ -91,7 +91,8 @@
                                    onclick="show_form(this,'instructor', true)">Dėstytojai</a>
                                 <a data-links href="#student" class="nav-link"
                                    onclick="show_form(this,'student', true)">Studentai</a>
-                                <a class="nav-link" href="layout-static.html">Ataskaita</a>
+                                <a data-links href="#" class="nav-link"
+                                   onclick="show_form(this,'dashboard', true)">Ataskaita</a>
                             </nav>
                         </div>
                     {% endif %}
@@ -108,8 +109,11 @@
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a data-links href="#antrasLangas" class="nav-link"
                                    onclick="show_form(this,'antrasLangas', true);render_calendar('calandar_mokymai')">Tvarkaraštis</a>
-                                <a class="nav-link" href="layout-static.html">Pažymėjimas/Atestatai</a>
-                                <a class="nav-link" href="layout-static.html">Ataskaita</a>
+                                <a data-links href="#contract_student" class="nav-link"
+                                   onclick="show_form(this, 'contract_student', true)">Pasirinkti mokymus</a>
+                                {#<a class="nav-link" href="layout-static.html">Pažymėjimas/Atestatai</a>#}
+                                <a data-links href="#" class="nav-link"
+                                   onclick="show_form(this,'dashboard', true)">Ataskaita</a>
                             </nav>
                         </div>
                     {% endif %}
@@ -131,7 +135,8 @@
                                 <a data-links href="#grupes" class="nav-link"
                                    onclick="show_form(this,'grupes')">Grupės</a>
                                 <a class="nav-link" href="layout-static.html">Užduotys</a>
-                                <a class="nav-link" href="layout-static.html">Ataskaita</a>
+                                <a data-links href="#" class="nav-link"
+                                   onclick="show_form(this,'dashboard', true)">Ataskaita</a>
                             </nav>
                         </div>
                     {% endif %}
@@ -153,7 +158,8 @@
                             <a data-links href="#instructor" class="nav-link"
                                onclick="show_form(this,'instructor', true)">Dėstytojai</a>
                             <a class="nav-link" href="layout-static.html">Pažymėjimai/Atestatai</a>
-                            <a class="nav-link" href="layout-static.html">Ataskaita</a>
+                            <a data-links href="#" class="nav-link"
+                               onclick="show_form(this,'dashboard', true)">Ataskaita</a>
                         </nav>
                     </div>
                 </div>
@@ -188,9 +194,20 @@
         <div data-content id="dashboard">
             {% include "dashboard.html" %}
         </div>
-
+        <div data-content id="contract_student" hidden>
+            {% include "contract_student.html" %}
+        </div>
+        <div data-content id="grupes" hidden>
+            {% include "grupes.html" %}
+        </div>
     </div>
-
+    <div id="main_content_area">
+        <div data-content id="antrasLangas" hidden>
+            <div class="container">
+                <div id='calandar_mokymai'></div>
+            </div>
+        </div>
+    </div>
 </div>
 <div id="main_content_area">
     <div data-content id="antrasLangas" hidden>
@@ -231,8 +248,7 @@
             }
         }
     }
-</script>
-<script>
+
     function render_calendar(calander_id) {
         var calendarEl = document.getElementById(calander_id);
         var calendar = new FullCalendar.Calendar(calendarEl, {

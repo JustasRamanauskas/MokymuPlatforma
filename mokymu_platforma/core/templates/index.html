@@ -63,7 +63,8 @@
                     <div class="sb-sidenav-menu-heading"></div>
                     <a data-links class="nav-link"
                        onclick="show_form(this,'dashboard')">
-                        <i class="fas fa-tachometer-alt"></i><div class="sb-nav-link-icon"> Dashboard</div>
+                        <i class="fas fa-tachometer-alt"></i>
+                        <div class="sb-nav-link-icon"> Dashboard</div>
                     </a>
                     <div class="sb-sidenav-menu-heading">Pagrindinis meniu</div>
 
@@ -185,45 +186,19 @@
             {% include "studentai.html" %}
         </div>
         <div data-content id="dashboard">
-                {% include "dashboard.html" %}
-        </div>
-    </div>
-    <div id="main_content_area">
-        <div data-content id="antrasLangas" hidden>
-            <div class="container">
-                <div id='calandar_mokymai'></div>
-            </div>
             {% include "dashboard.html" %}
         </div>
+
     </div>
+
 </div>
 <div id="main_content_area">
     <div data-content id="antrasLangas" hidden>
-        <div class="container" style="width: 80%;margin-left: 240px;margin-top: 80px;padding-left: 0">
+        <div class="container">
             <div id='calandar_mokymai'></div>
         </div>
-
     </div>
 </div>
-<div id="main_content_area">
-    <div data-content id="treciasLangas" hidden>
-        {#                <div id='calendar'></div>#}
-    </div>
-</div>
-<div data-content id="antrasLangas" hidden>
-    <div class="container">
-        <div id='calandar_mokymai'></div>
-    </div>
-
-</div>
-<div data-content id="treciasLangas" hidden>
-    {#                <div id='calendar'></div>#}
-</div>
-<div data-content id="grupes" hidden>
-    {% include "grupes.html" %}
-</div>
-
-
 <footer class="py-4 bg-light mt-auto">
     <div class="container-fluid">
         <div class="d-flex align-items-center justify-content-between small">
@@ -245,6 +220,18 @@
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
 <script src="../static/assets/demo/datatables-demo.js"></script>
+<script>
+    if (window.location.hash) {
+        var contents = document.querySelectorAll('[data-links]');
+        document.getElementById("mokymai").click()
+        for (var i = 0; i < contents.length; i++) {
+            if (contents[i].getAttribute("href") === window.location.hash) {
+                show_form(contents[i], window.location.hash.slice(1))
+                break
+            }
+        }
+    }
+</script>
 <script>
     function render_calendar(calander_id) {
         var calendarEl = document.getElementById(calander_id);

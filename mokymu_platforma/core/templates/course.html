@@ -1,11 +1,8 @@
 <link href="../static/css/styles.css" rel="stylesheet"/>
-
-
-
 <form action="/course/" method="post" id="course_forma" name="course_forma">
-        {% csrf_token %}
+    {% csrf_token %}
 
-    <H2> Įvesti naują mokymą </H2>
+    <H2> Pasirinkti mokymą </H2>
     <div>
         <div class="card-body">
             <div class="form-group">
@@ -15,7 +12,7 @@
                         <option value="{{ course.course_category }}">{{ course.course_description }}</option>
                     {% endfor %}
                 </select>
-                <button class="btn btn-primary" onclick="document.getElementById('course_forma').submit()">Sulurti naują kategoriją</button>
+                <button class="btn btn-primary" type="button" onclick="location.href='/index/#new_course_input'; location.reload()">Sukurti naują kategoriją</button>
             </div>
             <div class="form-group" id="choose_teacher">
                 <label class="small mb-1" for="role">Pasirinkite dėstytoją</label>

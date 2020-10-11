@@ -1,10 +1,13 @@
+import json
+
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-from mokymu_platforma.core.models import User, Roles, Client, Company, Teacher
-from mokymu_platforma.core.models import Course, Student, CoursesCompany, CoursesGroup, ScheduleCourse
+from mokymu_platforma.core.models import User, Roles, Client, Company, Teacher, Course, Student
+from mokymu_platforma.core.models import CoursesCompany, CoursesGroup, ScheduleCourse, ContractStudent
 
 
 def registracija(request):
@@ -168,3 +171,15 @@ def instructor(request):
 def studentai(request):
     pass
 
+@login_required(login_url='/')
+def register_student_for_course(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        schedule_course = ScheduleCourse.objects.get(id=data['course_id'])
+        user = request.user
+        contract_student = ContractStudent()
+        contract_student.schedule_course_id = schedule_course
+        contract_student.student_id = Student.objects.get(role_id__user_id=user)
+        contract_student.price = schedule_course.course_group_id.course_group_price
+        contract_student.save()
+        return HttpResponse(status=200)

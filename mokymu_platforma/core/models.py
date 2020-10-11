@@ -77,7 +77,7 @@ class ScheduleCourse(models.Model):
 
 class ContractStudent(models.Model):
     student_id = models.ForeignKey(Student, on_delete=models.DO_NOTHING)
-    client_id = models.ForeignKey(Client, on_delete=models.DO_NOTHING)
+    #client_id = models.ForeignKey(Client, on_delete=models.DO_NOTHING) Naudosime vėliau
     schedule_course_id = models.ForeignKey(ScheduleCourse, on_delete=models.DO_NOTHING)
     price = models.IntegerField()
     payment_method = models.CharField(max_length=200)

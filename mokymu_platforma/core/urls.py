@@ -13,6 +13,8 @@ urlpatterns = [
     path('dashboard/', dashboard),
     path('instructor/', instructor),
     path('studentai/', studentai),
+    path('kurso-registracija/', register_student_for_course),
+    path('studentai/', studentai),
     path('course_list/', course),
     path('new_course_input/', new_course_input)
 ]

@@ -82,6 +82,8 @@
                                    onclick="show_form(this,'course_list', true)">Mokymai/Temos</a>
                                 <a data-links href="#new_course" class="nav-link"
                                    onclick="show_form(this,'new_course', true)">Įvesti mokymus</a>
+                                <a data-links href="#new_course_input" class="nav-link"
+                                   onclick="show_form(this,'new_course_input', true)">Įvesti naujus mokymus</a>
                                 <a data-links href="#antrasLangas" class="nav-link"
                                    onclick="show_form(this,'antrasLangas', true);render_calendar('calandar_mokymai')">Tvarkaraštis</a>
                                 <a data-links href="#instructor" class="nav-link"
@@ -169,6 +171,9 @@
         </div>
         <div data-content id="new_course" hidden>
             {% include "course.html" %}
+        </div>
+        <div data-content id="new_course_input" hidden>
+            {% include "new_course_input.html" %}
         </div>
         <div data-content id="course_list" hidden>
             {% include "course_list.html" %}

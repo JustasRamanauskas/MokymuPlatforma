@@ -1,50 +1,52 @@
 <link href="../static/css/styles.css" rel="stylesheet"/>
-
-
-
+<p></p>
 <form action="/course/" method="post" id="course_forma" name="course_forma">
-        {% csrf_token %}
-
-    <H2> Įvesti naują mokymą </H2>
-    <div>
-        <div class="card-body">
-            <div class="form-group">
-                <label class="table-responsive" for="input_course_category">Pasirink kursų kategoriją</label>
-                <select class="form-control" name="input_course_category" id="input_course_category" required>
-                    {% for course in courses %}
-                        <option value="{{ course.course_category }}">{{ course.course_description }}</option>
-                    {% endfor %}
-                </select>
-                <button class="btn btn-primary" onclick="document.getElementById('course_forma').submit()">Sulurti naują kategoriją</button>
+    {% csrf_token %}
+    <div class="container-sm text-center w-50">
+        <H2> Įvesti naują mokymą </H2>
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="table-responsive" for="input_course_category">Pasirink kursų kategoriją</label>
+                    <select class="form-control" name="input_course_category" id="input_course_category" required>
+                        {% for course in courses %}
+                            <option value="{{ course.course_category }}">{{ course.course_description }}</option>
+                        {% endfor %}
+                    </select>
+                    <button class="btn btn-primary" onclick="document.getElementById('course_forma').submit()">Sulurti
+                        naują kategoriją
+                    </button>
+                </div>
+                <div class="form-group" id="choose_teacher">
+                    <label class="small mb-1" for="role">Pasirinkite dėstytoją</label>
+                    <select class="form-control" name="input_teacher" id="input_teacher" required>
+                        {% for destytojas in instructor_users %}
+                            <option value="{{ destytojas.id }}">{{ destytojas.first_name }} {{ destytojas.last_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="table-responsive" for="input_course_price">Įveskite kursų kainą</label>
+                    <input class="form-control text-center" id="input_course_price" name="input_course_price"
+                           type="text"/>
+                </div>
+                <div class="form-group">
+                    <label class="table-responsive" for="input_start_theory_date">Kursų teorijos data</label>
+                    <input class="small mb-1" id="input_start_theory_date" name="input_start_theory_date" type="date"/>
+                    <input class="small mb-1" id="input_finish_theory_date" name="input_finish_theory_date"
+                           type="date"/>
+                </div>
+                <div class="form-group">
+                    <label class="table-responsive" for="input_start_theory_date">Kursų praktikos data</label>
+                    <input class="small mb-1" id="input_start_practice_date" name="input_start_practice_date"
+                           type="date"/>
+                    <input class="small mb-1" id="input_finish_practice_date" name="input_finish_practice_date"
+                           type="date"/>
+                </div>
+                <div class="form-group">
+                    <label class="table-responsive" for="input_exam_date">Kursų egzamino data</label>
+                    <input class="small mb-1" id="input_exam_date" name="input_exam_date" type="date"/>
+                </div>
             </div>
-            <div class="form-group" id="choose_teacher">
-                <label class="small mb-1" for="role">Pasirinkite dėstytoją</label>
-                <select class="form-control" name="input_teacher" id="input_teacher" required>
-                    {% for destytojas in instructor_users %}
-                        <option value="{{ destytojas.id }}">{{ destytojas.first_name }} {{ destytojas.last_name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="table-responsive" for="input_course_price">Įveskite kursų kainą</label>
-                <input class="form-control text-center" id="input_course_price" name="input_course_price" type="text"/>
-            </div>
-            <div class="form-group">
-                <label class="table-responsive" for="input_start_theory_date">Kursų teorijos data</label>
-                <input class="small mb-1" id="input_start_theory_date" name="input_start_theory_date" type="date"/>
-                <input class="small mb-1" id="input_finish_theory_date" name="input_finish_theory_date" type="date"/>
-            </div>
-            <div class="form-group">
-                <label class="table-responsive" for="input_start_theory_date">Kursų praktikos data</label>
-                <input class="small mb-1" id="input_start_practice_date" name="input_start_practice_date" type="date"/>
-                <input class="small mb-1" id="input_finish_practice_date" name="input_finish_practice_date"
-                       type="date"/>
-            </div>
-            <div class="form-group">
-                <label class="table-responsive" for="input_exam_date">Kursų egzamino data</label>
-                <input class="small mb-1" id="input_exam_date" name="input_exam_date" type="date"/>
-            </div>
+            <button class="btn btn-primary" onclick="document.getElementById('course_forma').submit()">Įvesti</button>
         </div>
-        <button class="btn btn-primary" onclick="document.getElementById('course_forma').submit()">Įvesti</button>
-    </div>
 </form>

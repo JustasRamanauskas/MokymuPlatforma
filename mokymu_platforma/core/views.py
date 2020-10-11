@@ -67,12 +67,15 @@ def index(request):
     users = User.objects.filter(roles__role_type='instructor').distinct().all()
     courses = Course.objects.all()
     instructor_users = User.objects.filter(roles__role_type="instructor").distinct().all()
+    schedule_course = ScheduleCourse.objects.all()
 
+    for course in schedule_course:
+        course.course_group_id.course_teacher_id.role_id.user_id.first_name
     return render(request, "index.html",
                   context={'auth_user': request.user, 'core_roles': roles, "plain_roles": plain_roles,
                            'client': client, 'company': company, 'teacher': teacher, "courses": courses,
                            "student": student, 'instructor_users': instructor_users,
-                           'studentu_sarasas': studentu_sarasas})
+                           'studentu_sarasas': studentu_sarasas, "schedule_course": schedule_course})
 
 
 

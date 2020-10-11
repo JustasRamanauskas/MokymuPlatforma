@@ -16,13 +16,19 @@
 
         </tr>
         </thead>
-        {% for course in courses %}
+        {% for course in schedule_course %}
             <tbody>
             <tr>
-                <td class="text-center small mb-1">{{ course.course_category }} </td>
-                <td class="text-center small mb-1">{{ course.course_description }}</td>
-
-
+                <td class="text-center small mb-1">{{ course.course_group_id.course_company_id.course_id.course_category}}</td>
+                <td class="text-center small mb-1">{{course.course_group_id.course_company_id.course_id.course_description }}</td>
+                <td class="text-center small mb-1">{{ course.course_group_id.course_teacher_id.role_id.user_id.first_name }}
+                                                    {{ course.course_group_id.course_teacher_id.role_id.user_id.last_name }}</td>
+                <td class="text-center small mb-1">{{ course.course_group_id.course_group_price}}</td>
+                <td class="text-center small mb-1">{{ course.start_theory_date | date:"Y-m-d"}}</td>
+                <td class="text-center small mb-1">{{ course.finish_theory_date | date:"Y-m-d"}}</td>
+                <td class="text-center small mb-1">{{ course.start_practice_date | date:"Y-m-d" }}</td>
+                <td class="text-center small mb-1">{{ course.finish_practice_date | date:"Y-m-d" }}</td>
+                <td class="text-center small mb-1">{{ course.exam_date | date:"Y-m-d" }}</td>
             </tr>
 
             </tbody>

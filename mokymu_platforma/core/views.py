@@ -76,7 +76,8 @@ def index(request):
                   context={'auth_user': request.user, 'core_roles': roles, "plain_roles": plain_roles,
                            'client': client, 'company': company, 'teacher': teacher, "courses": courses,
                            "student": student, 'instructor_users': instructor_users,
-                           'studentu_sarasas': studentu_sarasas, 'schedule_courses': schedule_courses, 'contract_student_list': contract_student_list})
+                           'studentu_sarasas': studentu_sarasas, 'schedule_courses': schedule_courses,
+                           'contract_student_list': contract_student_list})
 
 @login_required(login_url='/')
 def settings(request):

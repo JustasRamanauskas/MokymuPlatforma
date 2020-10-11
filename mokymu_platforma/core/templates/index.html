@@ -92,7 +92,7 @@
                                 <a data-links href="#student" class="nav-link"
                                    onclick="show_form(this,'student', true)">Studentai</a>
                                 <a data-links href="#" class="nav-link"
-                                    onclick="show_form(this,'dashboard', true)">Ataskaita</a>
+                                   onclick="show_form(this,'dashboard', true)">Ataskaita</a>
                             </nav>
                         </div>
                     {% endif %}
@@ -113,7 +113,7 @@
                                    onclick="show_form(this, 'contract_student', true)">Pasirinkti mokymus</a>
                                 {#<a class="nav-link" href="layout-static.html">Pažymėjimas/Atestatai</a>#}
                                 <a data-links href="#" class="nav-link"
-                                    onclick="show_form(this,'dashboard', true)">Ataskaita</a>
+                                   onclick="show_form(this,'dashboard', true)">Ataskaita</a>
                             </nav>
                         </div>
                     {% endif %}
@@ -136,7 +136,7 @@
                                    onclick="show_form(this,'grupes')">Grupės</a>
                                 <a class="nav-link" href="layout-static.html">Užduotys</a>
                                 <a data-links href="#" class="nav-link"
-                                    onclick="show_form(this,'dashboard', true)">Ataskaita</a>
+                                   onclick="show_form(this,'dashboard', true)">Ataskaita</a>
                             </nav>
                         </div>
                     {% endif %}
@@ -159,7 +159,7 @@
                                onclick="show_form(this,'instructor', true)">Dėstytojai</a>
                             <a class="nav-link" href="layout-static.html">Pažymėjimai/Atestatai</a>
                             <a data-links href="#" class="nav-link"
-                                    onclick="show_form(this,'dashboard', true)">Ataskaita</a>
+                               onclick="show_form(this,'dashboard', true)">Ataskaita</a>
                         </nav>
                     </div>
                 </div>
@@ -195,11 +195,19 @@
             {% include "dashboard.html" %}
         </div>
         <div data-content id="contract_student" hidden>
-                {% include "contract_student.html" %}
+            {% include "contract_student.html" %}
         </div>
-
+        <div data-content id="grupes" hidden>
+            {% include "grupes.html" %}
+        </div>
     </div>
-
+    <div id="main_content_area">
+        <div data-content id="antrasLangas" hidden>
+            <div class="container">
+                <div id='calandar_mokymai'></div>
+            </div>
+        </div>
+    </div>
 </div>
 <div id="main_content_area">
     <div data-content id="antrasLangas" hidden>
@@ -240,8 +248,7 @@
             }
         }
     }
-</script>
-<script>
+
     function render_calendar(calander_id) {
         var calendarEl = document.getElementById(calander_id);
         var calendar = new FullCalendar.Calendar(calendarEl, {

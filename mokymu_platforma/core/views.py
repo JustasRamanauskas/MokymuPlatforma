@@ -64,18 +64,18 @@ def index(request):
     teacher = Teacher.objects.filter(role_id=roles.first()).first()
     student = Student.objects.filter(role_id=roles.first()).first()
     studentu_sarasas = User.objects.filter(roles__role_type='student').distinct().all()
-    users = User.objects.filter(roles__role_type='instructor').distinct().all()
     courses = Course.objects.all()
     instructor_users = User.objects.filter(roles__role_type="instructor").distinct().all()
+    schedule_courses = ScheduleCourse.objects.all()
+
+    for course in schedule_courses:
+        course.id
 
     return render(request, "index.html",
                   context={'auth_user': request.user, 'core_roles': roles, "plain_roles": plain_roles,
                            'client': client, 'company': company, 'teacher': teacher, "courses": courses,
                            "student": student, 'instructor_users': instructor_users,
-                           'studentu_sarasas': studentu_sarasas})
-
-
-
+                           'studentu_sarasas': studentu_sarasas, 'schedule_courses': schedule_courses})
 
 @login_required(login_url='/')
 def settings(request):
@@ -155,9 +155,9 @@ def course(request):
 
         return redirect(index)
 
-
+@login_required(login_url='/')
 def dashboard(request):
-    index()
+    redirect(index)
 
 
 @login_required(login_url='/')

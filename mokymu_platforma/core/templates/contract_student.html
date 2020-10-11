@@ -1,0 +1,43 @@
+<link href="../static/css/styles.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
+        crossorigin="anonymous"></script>
+<p></p>
+<div class="container-sm text-center w-75">
+    <H2> Pasirinkite kursus </H2>
+    <p></p>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Kursai</th>
+            <th scope="col">Aprašymas</th>
+            <th scope="col">Mokymų organizatorius</th>
+            <th scope="col">Dėstytojas</th>
+            <th scope="col">Kaina</th>
+            <th scope="col">Pradžios data</th>
+            <th scope="col">Pabaigos data</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        {% for course in schedule_courses %}
+            <tbody>
+            <tr>
+                <td class="text-center">{{ course.course_group_id.course_company_id.course_id.course_category }} </td>
+                <td class="text-center">{{ course.course_group_id.course_company_id.course_id.course_description }} </td>
+                <td class="text-center">{{ course.course_group_id.course_company_id.company_id.company_name }} </td>
+                <td class="text-center">{{ course.course_group_id.course_teacher_id.role_id.user_id.first_name }}
+                                        {{ course.course_group_id.course_teacher_id.role_id.user_id.last_name }}</td>
+                <td class="text-center">{{ course.course_group_id.course_group_price}}</td>
+                <td class="text-center">{{ course.start_date | date:"Y-m-d" }}</td>
+                <td class="text-center">{{ course.finish_date | date:"Y-m-d" }}</td>
+                <td> <input id="{{ course.id }}" name="{{ course.id }}" type="button" value="Registruotis" onclick="add_student_to_courses()"/> </td>
+            </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+</div>
+
+<script>
+function add_student_to_courses() {
+  document.getElementById("demo").innerHTML = "Hello World";
+}
+</script>

@@ -88,7 +88,8 @@
                                    onclick="show_form(this,'instructor', true)">Dėstytojai</a>
                                 <a data-links href="#student" class="nav-link"
                                    onclick="show_form(this,'student', true)">Studentai</a>
-                                <a class="nav-link" href="layout-static.html">Ataskaita</a>
+                                <a data-links href="#" class="nav-link"
+                                    onclick="show_form(this,'dashboard', true)">Ataskaita</a>
                             </nav>
                         </div>
                     {% endif %}
@@ -105,8 +106,11 @@
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a data-links href="#antrasLangas" class="nav-link"
                                    onclick="show_form(this,'antrasLangas', true);render_calendar('calandar_mokymai')">Tvarkaraštis</a>
-                                <a class="nav-link" href="layout-static.html">Pažymėjimas/Atestatai</a>
-                                <a class="nav-link" href="layout-static.html">Ataskaita</a>
+                                <a data-links href="#contract_student" class="nav-link"
+                                   onclick="show_form(this, 'contract_student', true)">Pasirinkti mokymus</a>
+                                {#<a class="nav-link" href="layout-static.html">Pažymėjimas/Atestatai</a>#}
+                                <a data-links href="#" class="nav-link"
+                                    onclick="show_form(this,'dashboard', true)">Ataskaita</a>
                             </nav>
                         </div>
                     {% endif %}
@@ -128,7 +132,8 @@
                                 <a data-links href="#grupes" class="nav-link"
                                    onclick="show_form(this,'grupes')">Grupės</a>
                                 <a class="nav-link" href="layout-static.html">Užduotys</a>
-                                <a class="nav-link" href="layout-static.html">Ataskaita</a>
+                                <a data-links href="#" class="nav-link"
+                                    onclick="show_form(this,'dashboard', true)">Ataskaita</a>
                             </nav>
                         </div>
                     {% endif %}
@@ -150,7 +155,8 @@
                             <a data-links href="#instructor" class="nav-link"
                                onclick="show_form(this,'instructor', true)">Dėstytojai</a>
                             <a class="nav-link" href="layout-static.html">Pažymėjimai/Atestatai</a>
-                            <a class="nav-link" href="layout-static.html">Ataskaita</a>
+                            <a data-links href="#" class="nav-link"
+                                    onclick="show_form(this,'dashboard', true)">Ataskaita</a>
                         </nav>
                     </div>
                 </div>
@@ -178,6 +184,9 @@
         </div>
         <div data-content id="dashboard">
                 {% include "dashboard.html" %}
+        </div>
+        <div data-content id="contract_student">
+                {% include "contract_student.html" %}
         </div>
     </div>
     <div id="main_content_area">

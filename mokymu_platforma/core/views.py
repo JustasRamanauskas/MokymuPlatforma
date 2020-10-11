@@ -64,15 +64,16 @@ def index(request):
     teacher = Teacher.objects.filter(role_id=roles.first()).first()
     student = Student.objects.filter(role_id=roles.first()).first()
     studentu_sarasas = User.objects.filter(roles__role_type='student').distinct().all()
-    users = User.objects.filter(roles__role_type='instructor').distinct().all()
+
     courses = Course.objects.all()
     instructor_users = User.objects.filter(roles__role_type="instructor").distinct().all()
+    schedule_course = ScheduleCourse.objects.all()
 
     return render(request, "index.html",
                   context={'auth_user': request.user, 'core_roles': roles, "plain_roles": plain_roles,
                            'client': client, 'company': company, 'teacher': teacher, "courses": courses,
                            "student": student, 'instructor_users': instructor_users,
-                           'studentu_sarasas': studentu_sarasas})
+                           'studentu_sarasas': studentu_sarasas, "schedule_course": schedule_course})
 
 
 
@@ -157,7 +158,7 @@ def course(request):
 
 
 def dashboard(request):
-    return render(request, "dashboard.html")
+    index()
 
 
 @login_required(login_url='/')
@@ -168,3 +169,15 @@ def instructor(request):
 def studentai(request):
     pass
 
+@login_required(login_url='/')
+def course_list(request):
+    pass
+
+@login_required(login_url='/')
+def new_course_input(request):
+    if request.method == "POST":
+        course = Course()
+        course.course_category = request.POST.get("input_course_category")
+        course.course_description = request.POST.get("input_course_description")
+        course.save()
+    return redirect(index)

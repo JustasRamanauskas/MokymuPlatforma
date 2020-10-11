@@ -1,7 +1,11 @@
 <link href="../static/css/styles.css" rel="stylesheet"/>
-<p></p>
-<div class="container-sm text-center w-50">
-    <H3> Įvesti naują mokymą </H3>
+
+
+
+<form action="/course/" method="post" id="course_forma" name="course_forma">
+        {% csrf_token %}
+
+    <H2> Įvesti naują mokymą </H2>
     <div>
         <div class="card-body">
             <div class="form-group">
@@ -43,4 +47,4 @@
         </div>
         <button class="btn btn-primary" onclick="document.getElementById('course_forma').submit()">Įvesti</button>
     </div>
-</div>
+</form>

@@ -1,0 +1,39 @@
+<div class="container-sm text-center w-75">
+    <H3> Vykstantys mokymai </H3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Kurso kategorija</th>
+            <th scope="col">Kurso aprašymas</th>
+            <th scope="col">Mokytojas</th>
+            <th scope="col">Kaina</th>
+            <th scope="col">Teorijos kurso pradžia</th>
+            <th scope="col">Teorijos kurso pabaiga</th>
+            <th scope="col">Praktikos kurso pradžia</th>
+            <th scope="col">Praktikos kurso pabaiga</th>
+            <th scope="col">Egzamino data</th>
+
+
+        </tr>
+        </thead>
+        {% for course in schedule_course %}
+            <tbody>
+            <tr>
+                <td class="text-center small mb-1">{{ course.course_group_id.course_company_id.course_id.course_category}}</td>
+                <td class="text-center small mb-1">{{course.course_group_id.course_company_id.course_id.course_description }}</td>
+                <td class="text-center small mb-1">{{ course.course_group_id.course_teacher_id.role_id.user_id.first_name }}
+                                                    {{ course.course_group_id.course_teacher_id.role_id.user_id.last_name }}</td>
+                <td class="text-center small mb-1">{{ course.course_group_id.course_group_price}}</td>
+                <td class="text-center small mb-1">{{ course.start_theory_date | date:"Y-m-d"}}</td>
+                <td class="text-center small mb-1">{{ course.finish_theory_date | date:"Y-m-d"}}</td>
+                <td class="text-center small mb-1">{{ course.start_practice_date | date:"Y-m-d" }}</td>
+                <td class="text-center small mb-1">{{ course.finish_practice_date | date:"Y-m-d" }}</td>
+                <td class="text-center small mb-1">{{ course.exam_date | date:"Y-m-d" }}</td>
+            </tr>
+
+            </tbody>
+
+        {% endfor %}
+    </table>
+
+</div>
